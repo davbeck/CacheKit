@@ -1,0 +1,11 @@
+source 'https://github.com/CocoaPods/Specs.git'
+
+target 'CacheKit', :exclusive => true do
+  pod "CacheKit", :path => "../"
+end
+
+target 'Tests', :exclusive => true do
+  pod "CacheKit", :path => "../"
+
+  
+end
