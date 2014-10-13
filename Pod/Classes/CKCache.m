@@ -28,27 +28,27 @@
 }
 
 
-- (BOOL)objectExistsForKey:(id)key
+- (BOOL)objectExistsForKey:(NSString *)key
 {
     return [self objectForKey:key] != nil;
 }
 
-- (id)objectForKey:(id)key
+- (id)objectForKey:(NSString *)key
 {
     return [self objectForKey:key expires:nil withContent:nil];
 }
 
-- (id)objectForKey:(id)key withContent:(id(^)())content
+- (id)objectForKey:(NSString *)key withContent:(id(^)())content
 {
     return [self objectForKey:key expires:nil withContent:content];
 }
 
-- (id)objectForKey:(id)key expiresIn:(NSTimeInterval)expiresIn withContent:(id(^)())content
+- (id)objectForKey:(NSString *)key expiresIn:(NSTimeInterval)expiresIn withContent:(id(^)())content
 {
     return [self objectForKey:key expires:[NSDate dateWithTimeIntervalSinceNow:expiresIn] withContent:content];
 }
 
-- (id)objectForKey:(id)key expires:(NSDate *)expires withContent:(id(^)())content
+- (id)objectForKey:(NSString *)key expires:(NSDate *)expires withContent:(id(^)())content
 {
     @throw [NSException exceptionWithName:NSInternalInconsistencyException
                                    reason:[NSString stringWithFormat:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)]
@@ -56,17 +56,17 @@
 }
 
 
-- (void)setObject:(id)obj forKey:(id)key
+- (void)setObject:(id)obj forKey:(NSString *)key
 {
     [self setObject:obj forKey:key expires:nil];
 }
 
-- (void)setObject:(id)obj forKey:(id)key expiresIn:(NSTimeInterval)expiresIn
+- (void)setObject:(id)obj forKey:(NSString *)key expiresIn:(NSTimeInterval)expiresIn
 {
     [self setObject:obj forKey:key expires:[NSDate dateWithTimeIntervalSinceNow:expiresIn]];
 }
 
-- (void)setObject:(id)obj forKey:(id)key expires:(NSDate *)expires
+- (void)setObject:(id)obj forKey:(NSString *)key expires:(NSDate *)expires
 {
     @throw [NSException exceptionWithName:NSInternalInconsistencyException
                                    reason:[NSString stringWithFormat:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)]
@@ -74,7 +74,7 @@
 }
 
 
-- (void)removeObjectForKey:(id)key
+- (void)removeObjectForKey:(NSString *)key
 {
     @throw [NSException exceptionWithName:NSInternalInconsistencyException
                                    reason:[NSString stringWithFormat:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)]

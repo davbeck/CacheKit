@@ -1,5 +1,5 @@
 //
-//  CKMemoryCacheTests.m
+//  CKFileCacheTests.m
 //  CacheKit
 //
 //  Created by David Beck on 10/13/14.
@@ -12,25 +12,27 @@
 #import <CacheKit/CacheKit.h>
 
 
-@interface CKMemoryCacheTests : XCTestCase
+@interface CKFileCacheTests : XCTestCase
 {
-    CKMemoryCache *_cache;
+    CKFileCache *_cache;
 }
 
 @end
 
-@implementation CKMemoryCacheTests
+@implementation CKFileCacheTests
 
 - (void)setUp
 {
     [super setUp];
     
-    _cache = [[CKMemoryCache alloc] initWithName:@"Tests"];
+    _cache = [[CKFileCache alloc] initWithName:@"Tests"];
 }
 
 - (void)tearDown
 {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
+    [_cache removeAllObjects];
+    [_cache waitUntilFilesAreWritten];
+    
     [super tearDown];
 }
 
@@ -58,7 +60,7 @@
 
 - (void)testContentBlock
 {
-    XCTAssertFalse([_cache objectExistsForKey:@"A"], @"removeObjectForKey did not remove object");
+    XCTAssertFalse([_cache objectExistsForKey:@"A"], @"objectExistsForKey at beginning of test.");
     
     id object = [_cache objectForKey:@"A" withContent:^{
         return @1;
@@ -80,6 +82,20 @@
     XCTAssertEqualObjects(object, @2, @"objectForKey:withContent: did not return correct object.");
     
     XCTAssertEqualObjects([_cache objectForKey:@"A"], @2, @"objectForKey for key just added");
+}
+
+- (void)testPersistence
+{
+    NSString *name = _cache.name;
+    
+    [_cache setObject:@1 forKey:@"A"];
+    [_cache setObject:@2 forKey:@"B"];
+    [_cache setObject:@3 forKey:@"C"];
+    [_cache waitUntilFilesAreWritten];
+    
+    _cache = [[CKFileCache alloc] initWithName:name];
+    
+    XCTAssertEqualObjects([_cache objectForKey:@"B"], @2, @"Cache not persisted.");
 }
 
 - (void)testCacheHitPerformance

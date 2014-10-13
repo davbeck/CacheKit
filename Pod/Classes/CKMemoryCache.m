@@ -20,25 +20,37 @@
 
 @implementation CKMemoryCache
 
++ (instancetype)sharedCache
+{
+    static id sharedInstance;
+    static dispatch_once_t done;
+    dispatch_once(&done, ^{
+        sharedInstance = [[self alloc] initWithName:@"SharedCache"];
+    });
+    
+    return sharedInstance;
+}
+
 - (instancetype)initWithName:(NSString *)name
 {
     self = [super initWithName:name];
     if (self) {
         _internalCache = [NSCache new];
+        _internalCache.name = name;
     }
     
     return self;
 }
 
 
-- (BOOL)objectExistsForKey:(id)key
+- (BOOL)objectExistsForKey:(NSString *)key
 {
     CKCacheContent *cacheContent = [_internalCache objectForKey:key];
     
     return cacheContent != nil && cacheContent.expires.timeIntervalSinceNow >= 0;
 }
 
-- (id)objectForKey:(id)key expires:(NSDate *)expires withContent:(id(^)())content
+- (id)objectForKey:(NSString *)key expires:(NSDate *)expires withContent:(id(^)())content
 {
     CKCacheContent *cacheContent = [_internalCache objectForKey:key];
     
@@ -59,14 +71,14 @@
 }
 
 
-- (void)setObject:(id)object forKey:(id)key expires:(NSDate *)expires
+- (void)setObject:(id)object forKey:(NSString *)key expires:(NSDate *)expires
 {
     CKCacheContent *cacheContent = [CKCacheContent cacheContentWithObject:object expires:expires];
     [_internalCache setObject:cacheContent forKey:key];
 }
 
 
-- (void)removeObjectForKey:(id)key
+- (void)removeObjectForKey:(NSString *)key
 {
     [_internalCache removeObjectForKey:key];
 }

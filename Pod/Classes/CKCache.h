@@ -12,19 +12,19 @@
 
 - (instancetype)initWithName:(NSString *)name NS_DESIGNATED_INITIALIZER;
 
-@property (copy) NSString *name;
+@property (readonly, copy) NSString *name;
 
-- (BOOL)objectExistsForKey:(id)key;
-- (id)objectForKey:(id)key;
-- (id)objectForKey:(id)key withContent:(id(^)())content;
-- (id)objectForKey:(id)key expiresIn:(NSTimeInterval)expiresIn withContent:(id(^)())content;
-- (id)objectForKey:(id)key expires:(NSDate *)expires withContent:(id(^)())content;
+- (BOOL)objectExistsForKey:(NSString *)key;
+- (id)objectForKey:(NSString *)key;
+- (id)objectForKey:(NSString *)key withContent:(id(^)())content;
+- (id)objectForKey:(NSString *)key expiresIn:(NSTimeInterval)expiresIn withContent:(id(^)())content;
+- (id)objectForKey:(NSString *)key expires:(NSDate *)expires withContent:(id(^)())content;
 
-- (void)setObject:(id)obj forKey:(id)key;
-- (void)setObject:(id)obj forKey:(id)key expiresIn:(NSTimeInterval)expiresIn;
-- (void)setObject:(id)obj forKey:(id)key expires:(NSDate *)expires;
+- (void)setObject:(id)obj forKey:(NSString *)key;
+- (void)setObject:(id)obj forKey:(NSString *)key expiresIn:(NSTimeInterval)expiresIn;
+- (void)setObject:(id)obj forKey:(NSString *)key expires:(NSDate *)expires;
 
-- (void)removeObjectForKey:(id)key;
+- (void)removeObjectForKey:(NSString *)key;
 - (void)removeAllObjects;
 
 /** Removes any objects in the cache that have expired

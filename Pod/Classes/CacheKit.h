@@ -9,3 +9,4 @@
 
 #import "CKCache.h"
 #import "CKMemoryCache.h"
+#import "CKFileCache.h"

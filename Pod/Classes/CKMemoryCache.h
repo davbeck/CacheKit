@@ -10,4 +10,6 @@
 
 @interface CKMemoryCache : CKCache
 
++ (instancetype)sharedCache;
+
 @end
