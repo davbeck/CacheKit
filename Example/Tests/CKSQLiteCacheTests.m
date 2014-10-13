@@ -1,5 +1,5 @@
 //
-//  CKFileCacheTests.m
+//  CKSQLiteCacheTests.m
 //  CacheKit
 //
 //  Created by David Beck on 10/13/14.
@@ -12,26 +12,25 @@
 #import <CacheKit/CacheKit.h>
 
 
-@interface CKFileCacheTests : XCTestCase
+@interface CKSQLiteCacheTests : XCTestCase
 {
-    CKFileCache *_cache;
+    CKSQLiteCache *_cache;
 }
 
 @end
 
-@implementation CKFileCacheTests
+@implementation CKSQLiteCacheTests
 
 - (void)setUp
 {
     [super setUp];
     
-    _cache = [[CKFileCache alloc] initWithName:@"Tests"];
+    _cache = [[CKSQLiteCache alloc] initWithName:@"Tests"];
 }
 
 - (void)tearDown
 {
     [_cache removeAllObjects];
-    [_cache waitUntilFilesAreWritten];
     
     [super tearDown];
 }
@@ -91,9 +90,8 @@
     [_cache setObject:@1 forKey:@"A"];
     [_cache setObject:@2 forKey:@"B"];
     [_cache setObject:@3 forKey:@"C"];
-    [_cache waitUntilFilesAreWritten];
     
-    _cache = [[CKFileCache alloc] initWithName:name];
+    _cache = [[CKSQLiteCache alloc] initWithName:name];
     
     XCTAssertEqualObjects([_cache objectForKey:@"B"], @2, @"Cache not persisted.");
 }

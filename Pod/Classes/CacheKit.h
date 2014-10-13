@@ -10,3 +10,4 @@
 #import "CKCache.h"
 #import "CKMemoryCache.h"
 #import "CKFileCache.h"
+#import "CKSQLiteCache.h"

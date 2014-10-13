@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1191739419EC24F800AC40DF /* CKMemoryCacheTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1191739319EC24F800AC40DF /* CKMemoryCacheTests.m */; };
 		119173A319EC447B00AC40DF /* CKFileCacheTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 119173A219EC447B00AC40DF /* CKFileCacheTests.m */; };
+		119173A819EC5BAE00AC40DF /* CKSQLiteCacheTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 119173A719EC5BAE00AC40DF /* CKSQLiteCacheTests.m */; };
 		1C7CBFEA6EE34B8A6524D501 /* libPods-Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FED80748FFDE5B25EC4748D5 /* libPods-Tests.a */; };
 		29C33AAB24535D3CC04E5A91 /* libPods-CacheKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0364EB75FA5627D60595A092 /* libPods-CacheKit.a */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
@@ -41,6 +42,7 @@
 		0364EB75FA5627D60595A092 /* libPods-CacheKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CacheKit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1191739319EC24F800AC40DF /* CKMemoryCacheTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKMemoryCacheTests.m; sourceTree = "<group>"; };
 		119173A219EC447B00AC40DF /* CKFileCacheTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKFileCacheTests.m; sourceTree = "<group>"; };
+		119173A719EC5BAE00AC40DF /* CKSQLiteCacheTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKSQLiteCacheTests.m; sourceTree = "<group>"; };
 		1B27FCF3E40D152774DD7470 /* Pods-CacheKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CacheKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CacheKit/Pods-CacheKit.debug.xcconfig"; sourceTree = "<group>"; };
 		322855D93E941208970A95C8 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		41ED64B5B348243199804585 /* Pods-Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tests/Pods-Tests.release.xcconfig"; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 			children = (
 				1191739319EC24F800AC40DF /* CKMemoryCacheTests.m */,
 				119173A219EC447B00AC40DF /* CKFileCacheTests.m */,
+				119173A719EC5BAE00AC40DF /* CKSQLiteCacheTests.m */,
 				6003F5B6195388D20070C39A /* Supporting Files */,
 			);
 			path = Tests;
@@ -376,6 +379,7 @@
 			files = (
 				119173A319EC447B00AC40DF /* CKFileCacheTests.m in Sources */,
 				1191739419EC24F800AC40DF /* CKMemoryCacheTests.m in Sources */,
+				119173A819EC5BAE00AC40DF /* CKSQLiteCacheTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

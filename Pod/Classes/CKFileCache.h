@@ -25,6 +25,12 @@
 
 + (instancetype)sharedCache;
 
+/** Clear the internal in memory cache
+ 
+ This is primarily for testing purposes.
+ */
+- (void)clearInternalCache;
+
 /** Wait for file operations to complete
  
  This method waits until all the file operations have been completed before returning. Use this

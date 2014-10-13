@@ -1,28 +1,29 @@
 //
-//  CKFileCache.m
+//  CKSQLiteCache.m
 //  Pods
 //
 //  Created by David Beck on 10/13/14.
 //
 //
 
-#import "CKFileCache.h"
+#import "CKSQLiteCache.h"
+
+#import <FMDB/FMDB.h>
 
 #import "CKCacheContent.h"
 
 
-@interface CKFileCache ()
+@interface CKSQLiteCache ()
 {
     // we still use an internal NSCache to cache what we get from the file system
     // the file system is the truth though
     NSCache *_internalCache;
-    NSURL *_directory;
-    dispatch_queue_t _queue;
+    FMDatabaseQueue *_queue;
 }
 
 @end
 
-@implementation CKFileCache
+@implementation CKSQLiteCache
 
 + (instancetype)sharedCache
 {
@@ -35,6 +36,11 @@
     return sharedInstance;
 }
 
+- (void)dealloc
+{
+    [_queue close];
+}
+
 - (instancetype)initWithName:(NSString *)name
 {
     NSAssert(name.length > 0, @"You must provide a name for %@. Use +sharedCache instead.", NSStringFromClass([self class]));
@@ -42,22 +48,25 @@
     self = [super initWithName:name];
     if (self) {
         NSString *cacheDirectory = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
-        cacheDirectory = [cacheDirectory stringByAppendingPathComponent:[name stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-        _directory = [NSURL fileURLWithPath:cacheDirectory];
-        
-        NSLog(@"Creating CKFileCache in directory: %@", _directory.path);
         
         NSError *error = nil;
-        [[NSFileManager defaultManager] createDirectoryAtURL:_directory withIntermediateDirectories:YES attributes:nil error:&error];
+        [[NSFileManager defaultManager] createDirectoryAtPath:cacheDirectory withIntermediateDirectories:YES attributes:nil error:&error];
         if (error != nil) {
-            NSLog(@"Error creating cache directory (%@): %@", _directory, error);
+            NSLog(@"Error creating cache directory (%@): %@", cacheDirectory, error);
             return nil;
         }
         
+        cacheDirectory = [cacheDirectory stringByAppendingPathComponent:[name stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        cacheDirectory = [cacheDirectory stringByAppendingPathExtension:@"sqlite"];
+        NSLog(@"Creating CKSQLiteCache at: %@", cacheDirectory);
+        
+        _queue = [FMDatabaseQueue databaseQueueWithPath:cacheDirectory];
+        [_queue inDatabase:^(FMDatabase *db) {
+            [db executeUpdate:@"CREATE TABLE IF NOT EXISTS objects (key TEXT PRIMARY KEY, object BLOB, expires INTEGER);"];
+        }];
+        
         _internalCache = [NSCache new];
         _internalCache.name = name;
-        
-        _queue = dispatch_queue_create(name.UTF8String, DISPATCH_QUEUE_SERIAL);
     }
     
     return self;
@@ -68,11 +77,6 @@
     @throw [NSException exceptionWithName:NSInternalInconsistencyException
                                    reason:[NSString stringWithFormat:@"You must provide a name for %@. Use +sharedCache instead.", NSStringFromClass([self class])]
                                  userInfo:nil];
-}
-
-- (NSURL *)_URLForKey:(NSString *)key
-{
-    return [_directory URLByAppendingPathComponent:key isDirectory:NO];
 }
 
 
@@ -91,9 +95,22 @@
     __block CKCacheContent *cacheContent = [_internalCache objectForKey:key];
     
     if (cacheContent == nil) {
-        dispatch_sync(_queue, ^{
-            cacheContent = [NSKeyedUnarchiver unarchiveObjectWithFile:[self _URLForKey:key].path];
-        });
+        [_queue inDatabase:^(FMDatabase *db) {
+            //expires == null?
+            FMResultSet *s = [db executeQuery:@"SELECT object, expires FROM objects WHERE key = ? AND (expires IS NULL OR expires > ?);", key, @([NSDate new].timeIntervalSince1970)];
+            if ([s next]) {
+                id object = [NSKeyedUnarchiver unarchiveObjectWithData:[s dataForColumn:@"object"]];
+                NSDate *expires = nil;
+                if (![s columnIsNull:@"expires"]) {
+                    expires = [NSDate dateWithTimeIntervalSince1970:[s doubleForColumn:@"expires"]];
+                }
+                cacheContent = [CKCacheContent cacheContentWithObject:object expires:expires];
+            }
+        }];
+        
+        if (cacheContent != nil) {
+            [_internalCache setObject:cacheContent forKey:key];
+        }
     }
     
     if (cacheContent.expires != nil && cacheContent.expires.timeIntervalSinceNow < 0.0) {
@@ -107,9 +124,10 @@
             cacheContent = [CKCacheContent cacheContentWithObject:object expires:expires];
             [_internalCache setObject:cacheContent forKey:key];
             
-            dispatch_async(_queue, ^{
-                [NSKeyedArchiver archiveRootObject:cacheContent toFile:[self _URLForKey:key].path];
-            });
+            NSData *objectData = [NSKeyedArchiver archivedDataWithRootObject:object];
+            [_queue inDatabase:^(FMDatabase *db) {
+                [db executeUpdate:@"INSERT OR REPLACE INTO objects (key, object, expires) VALUES (?, ?, ?)", key, objectData, expires];
+            }];
         }
     }
     
@@ -122,37 +140,32 @@
     CKCacheContent *cacheContent = [CKCacheContent cacheContentWithObject:object expires:expires];
     [_internalCache setObject:cacheContent forKey:key];
     
-    dispatch_async(_queue, ^{
-        [NSKeyedArchiver archiveRootObject:cacheContent toFile:[self _URLForKey:key].path];
-    });
+    NSData *objectData = [NSKeyedArchiver archivedDataWithRootObject:object];
+    [_queue inDatabase:^(FMDatabase *db) {
+        [db executeUpdate:@"INSERT OR REPLACE INTO objects (key, object, expires) VALUES (?, ?, ?)", key, objectData, expires];
+    }];
 }
 
 
 - (void)removeObjectForKey:(NSString *)key
 {
     [_internalCache removeObjectForKey:key];
-    dispatch_async(_queue, ^{
-        [[NSFileManager defaultManager] removeItemAtURL:[self _URLForKey:key] error:NULL];
-    });
+    [_queue inDatabase:^(FMDatabase *db) {
+        [db executeUpdate:@"DELETE FROM objects WHERE key = ?", key];
+    }];
 }
 
 - (void)removeAllObjects
 {
     [_internalCache removeAllObjects];
-    dispatch_async(_queue, ^{
-        [[NSFileManager defaultManager] removeItemAtURL:_directory error:NULL];
-        [[NSFileManager defaultManager] createDirectoryAtURL:_directory withIntermediateDirectories:YES attributes:nil error:NULL];
-    });
+    [_queue inDatabase:^(FMDatabase *db) {
+        [db executeUpdate:@"DELETE FROM objects"];
+    }];
 }
 
 - (void)clearInternalCache
 {
     [_internalCache removeAllObjects];
-}
-
-- (void)waitUntilFilesAreWritten
-{
-    dispatch_sync(_queue, ^{});
 }
 
 @end
