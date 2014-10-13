@@ -1,28 +1,15 @@
-#
-# Be sure to run `pod lib lint CacheKit.podspec' to ensure this is a
-# valid spec and remove all comments before submitting the spec.
-#
-# Any lines starting with a # are optional, but encouraged
-#
-# To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html
-#
-
 Pod::Spec.new do |s|
   s.name             = "CacheKit"
   s.version          = "0.1.0"
-  s.summary          = "A short description of CacheKit."
+  s.summary          = "Simple and flexible caching mechanism for in memory and persistent caches."
   s.description      = <<-DESC
-                       An optional longer description of CacheKit
-
-                       * Markdown format.
-                       * Don't worry about the indent, we strip it!
+                       Easily cache objects in memory, to files, a database or not at all.
                        DESC
   s.homepage         = "https://github.com/davbeck/CacheKit"
-  # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
   s.license          = 'MIT'
   s.author           = { "David Beck" => "code@thinkultimate.com" }
   s.source           = { :git => "https://github.com/davbeck/CacheKit.git", :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+  s.social_media_url = 'https://twitter.com/davbeck'
 
   s.ios.deployment_target = '6.0'
   s.osx.deployment_target = '10.8'
@@ -32,8 +19,6 @@ Pod::Spec.new do |s|
   s.resource_bundles = {
     'CacheKit' => ['Pod/Assets/*.png']
   }
-
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
+  
   s.dependency 'FMDB', '~> 2.4'
 end
