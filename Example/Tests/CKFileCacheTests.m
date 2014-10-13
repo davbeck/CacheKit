@@ -115,4 +115,28 @@
     }];
 }
 
+- (void)testCacheLargeHitPerformance
+{
+    NSUInteger size = 1024 * 1024;
+    NSMutableData* data = [NSMutableData dataWithCapacity:size];
+    for(NSUInteger i = 0; i < size/sizeof(u_int32_t); i++) {
+        u_int32_t randomBits = arc4random();
+        [data appendBytes:(void*)&randomBits length:sizeof(u_int32_t)];
+    }
+    NSData *aData = [data copy];
+    
+    [_cache setObject:aData forKey:@"A"];
+    [_cache setObject:@2 forKey:@"B"];
+    [_cache setObject:@3 forKey:@"C"];
+    for (NSUInteger i = 0; i < 100; i++) {
+        [data appendBytes:(void*)&i length:sizeof(i)];
+        [_cache setObject:data forKey:[NSString stringWithFormat:@"%lu", (unsigned long)i]];
+    }
+    
+    [self measureBlock:^{
+        [_cache clearInternalCache];
+        XCTAssertEqualObjects([_cache objectForKey:@"A"], aData, @"Inccorrect cache hit.");
+    }];
+}
+
 @end

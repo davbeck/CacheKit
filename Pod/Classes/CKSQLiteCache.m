@@ -163,6 +163,13 @@
     }];
 }
 
+- (void)removeExpiredObjects
+{
+    [_queue inDatabase:^(FMDatabase *db) {
+        [db executeUpdate:@"DELETE FROM objects WHERE expires IS NOT NULL AND expires < ?", @([[NSDate date] timeIntervalSince1970])];
+    }];
+}
+
 - (void)clearInternalCache
 {
     [_internalCache removeAllObjects];

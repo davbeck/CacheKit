@@ -12,7 +12,7 @@
 
 + (instancetype)cacheContentWithObject:(id)object expires:(NSDate *)expires;
 
-@property (nonatomic, readonly, retain) id object;
+@property (nonatomic, readonly, copy) id object;
 @property (nonatomic, readonly, copy) NSDate *expires;
 
 @end

@@ -96,6 +96,20 @@
     XCTAssertEqualObjects([_cache objectForKey:@"B"], @2, @"Cache not persisted.");
 }
 
+- (void)testRemovingExpiredObjects
+{
+    [_cache setObject:@1 forKey:@"A" expiresIn:100];
+    [_cache setObject:@2 forKey:@"B"];
+    [_cache setObject:@3 forKey:@"C" expiresIn:-100];
+    
+    [_cache removeExpiredObjects];
+    
+    XCTAssertEqualObjects([_cache objectForKey:@"A"], @1, @"Object with future expiration removed.");
+    XCTAssertEqualObjects([_cache objectForKey:@"B"], @2, @"Object without expiration removed.");
+    XCTAssertFalse([_cache objectExistsForKey:@"C"], @"Expired object exists.");
+    XCTAssertEqualObjects([_cache objectForKey:@"C"], nil, @"Object with past expiration not removed.");
+}
+
 - (void)testCacheHitPerformance
 {
     [_cache setObject:@1 forKey:@"A"];
@@ -110,6 +124,30 @@
         XCTAssertEqualObjects([_cache objectForKey:@"B" withContent:^{
             return @5;
         }], @2, @"Inccorrect cache hit.");
+    }];
+}
+
+- (void)testCacheLargeHitPerformance
+{
+    NSUInteger size = 1024 * 1024;
+    NSMutableData* data = [NSMutableData dataWithCapacity:size];
+    for(NSUInteger i = 0; i < size/sizeof(u_int32_t); i++) {
+        u_int32_t randomBits = arc4random();
+        [data appendBytes:(void*)&randomBits length:sizeof(u_int32_t)];
+    }
+    NSData *aData = [data copy];
+    
+    [_cache setObject:aData forKey:@"A"];
+    [_cache setObject:@2 forKey:@"B"];
+    [_cache setObject:@3 forKey:@"C"];
+    for (NSUInteger i = 0; i < 100; i++) {
+        [data appendBytes:(void*)&i length:sizeof(i)];
+        [_cache setObject:data forKey:[NSString stringWithFormat:@"%lu", (unsigned long)i]];
+    }
+    
+    [self measureBlock:^{
+        [_cache clearInternalCache];
+        XCTAssertEqualObjects([_cache objectForKey:@"A"], aData, @"Inccorrect cache hit.");
     }];
 }
 
