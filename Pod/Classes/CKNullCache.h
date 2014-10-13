@@ -18,6 +18,13 @@
  */
 @interface CKNullCache : CKCache
 
+/** A shared null cache.
+ 
+ This is the safest shared cache because it doesn't store anything anyway. There is no reason
+ to create multiple null caches.
+ 
+ @return A shared useless cache.
+ */
 + (instancetype)sharedCache;
 
 @end

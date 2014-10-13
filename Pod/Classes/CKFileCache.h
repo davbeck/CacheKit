@@ -23,6 +23,13 @@
  */
 @interface CKFileCache : CKCache
 
+/** A shared file cache.
+ 
+ You can use this cache for general content you want stored on disk. Make sure your keys are
+ unique across your app by prefixing them with class names or other unique data.
+ 
+ @return A singleton instance of a file cache.
+ */
 + (instancetype)sharedCache;
 
 /** Clear the internal in memory cache
