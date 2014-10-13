@@ -1,0 +1,14 @@
+PODS:
+  - CacheKit (0.1.0)
+
+DEPENDENCIES:
+  - CacheKit (from `../`)
+
+EXTERNAL SOURCES:
+  CacheKit:
+    :path: ../
+
+SPEC CHECKSUMS:
+  CacheKit: 5e378082847f850656977d4c6ffe2d03a9cff937
+
+COCOAPODS: 0.34.1

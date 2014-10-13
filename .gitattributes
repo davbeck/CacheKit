@@ -1,0 +1,2 @@
+*.m diff=objc
+*.strings diff=localizablestrings

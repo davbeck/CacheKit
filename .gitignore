@@ -30,3 +30,27 @@ DerivedData
 # `pod install` in .travis.yml
 #
 # Pods/
+# xcode noise
+build/*
+*.mode1
+*.mode1v3
+*.mode2v3
+*.perspective
+*.perspectivev3
+*.pbxuser
+xcuserdata
+InfoPlist.h
+
+# old skool
+.svn
+
+# osx noise
+.DS_Store
+*~.nib
+*.swp
+profile
+
+# other
+Support
+Research
+Artwork
