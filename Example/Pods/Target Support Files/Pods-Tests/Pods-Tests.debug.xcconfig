@@ -1,5 +1,0 @@
-GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/CacheKit" "${PODS_ROOT}/Headers/Public/FMDB"
-OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/CacheKit" -isystem "${PODS_ROOT}/Headers/Public/FMDB"
-OTHER_LDFLAGS = -ObjC -l"Pods-Tests-CacheKit" -l"Pods-Tests-FMDB" -l"sqlite3"
-PODS_ROOT = ${SRCROOT}/Pods
