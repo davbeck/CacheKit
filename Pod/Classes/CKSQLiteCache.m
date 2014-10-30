@@ -106,6 +106,8 @@
                 }
                 cacheContent = [CKCacheContent cacheContentWithObject:object expires:expires];
             }
+            
+            [s close];
         }];
         
         if (cacheContent != nil) {
