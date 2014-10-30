@@ -1,5 +1,9 @@
 PODS:
   - CacheKit (0.1.0):
+    - CacheKit/standard
+  - CacheKit/common (0.1.0)
+  - CacheKit/standard (0.1.0):
+    - CacheKit/common
     - FMDB (~> 2.4)
   - FMDB (2.4):
     - FMDB/standard
@@ -15,7 +19,7 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  CacheKit: ed2f8090da4520f7d504abb12093f3d13ffe8b7c
+  CacheKit: 7366127ea0764ba2a9729dc7678ab7dd1e1f89d4
   FMDB: 0b2fa25e5264ef177973c0cb8c02c711107979aa
 
 COCOAPODS: 0.34.4
