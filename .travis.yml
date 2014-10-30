@@ -1,6 +1,8 @@
 # reference: http://www.objc.io/issue-6/travis-ci.html
 
 language: objective-c
-before_install: cd Example && pod install && cd -
+before_install:
+  - gem install cocoapods --no-rdoc --no-ri --no-document --quiet
+  - cd Example && pod install && cd -
 script:
 - xctool test -workspace Example/CacheKit.xcworkspace -scheme CacheKit -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
