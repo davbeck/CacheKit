@@ -11,22 +11,11 @@ Pod::Spec.new do |s|
   s.platform = :ios, '6.0'
   s.requires_arc = true
 
-  s.default_subspec = 'standard'
-
   s.resource_bundles = {
     'CacheKit' => ['Pod/Assets/*.png']
   }
-
-  # use the standard FMDB version
-  s.subspec 'standard' do |ss|
-    ss.source_files = 'Pod/Classes'
-    ss.dependency 'FMDB', '~> 2.4'
-  end
-
-  # use the standalone FMDB version
-  s.subspec 'standalone' do |ss|
-    ss.source_files = 'Pod/Classes'
-    ss.dependency 'FMDB/standalone', '~> 2.4'
-  end
-
+  
+  s.source_files = 'Pod/Classes'
+  
+  s.dependency 'FMDB', '~> 2.4'
 end
