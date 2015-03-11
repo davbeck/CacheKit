@@ -17,20 +17,16 @@ Pod::Spec.new do |s|
     'CacheKit' => ['Pod/Assets/*.png']
   }
 
-  s.subspec 'common' do |ss|
-      ss.source_files = 'Pod/Classes'
-  end
-
   # use the standard FMDB version
   s.subspec 'standard' do |ss|
     ss.dependency 'FMDB', '~> 2.4'
-    ss.dependency 'CacheKit/common'
+    ss.source_files = 'Pod/Classes'
   end
 
   # use the standalone FMDB version
   s.subspec 'standalone' do |ss|
     ss.dependency 'FMDB/standalone', '~> 2.4'
-    ss.dependency 'CacheKit/common'
+    ss.source_files = 'Pod/Classes'
   end
 
 end
