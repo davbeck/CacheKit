@@ -6,6 +6,4 @@ end
 
 target 'Tests', :exclusive => true do
   pod "CacheKit", :path => "../"
-
-  
 end
