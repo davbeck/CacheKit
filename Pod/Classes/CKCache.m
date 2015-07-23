@@ -92,4 +92,16 @@
 {
 }
 
+- (void)setMaxFilesize:(NSUInteger)maxFilesize {
+	_maxFilesize = maxFilesize;
+	
+	if (_maxFilesize > 0 && self.currentFilesize > _maxFilesize) {
+		[self removeAllObjects];
+	}
+}
+
+- (NSUInteger)currentFilesize {
+	return 0;
+}
+
 @end

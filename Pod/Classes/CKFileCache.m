@@ -155,4 +155,23 @@
     dispatch_sync(_queue, ^{});
 }
 
+- (NSUInteger)currentFilesize {
+	NSUInteger filesize = 0;
+	
+	NSDirectoryEnumerator *enumerator = [[NSFileManager defaultManager] enumeratorAtPath:_directory.path];
+	NSString *file = nil;
+	while ((file = [enumerator nextObject])) {
+		NSString *path = [_directory.path stringByAppendingPathComponent:file];
+		NSError *error = nil;
+		NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:&error];
+		if (attributes == nil) {
+			NSLog(@"Error reading file attributes: %@", error);
+		}
+		
+		filesize += attributes.fileSize;
+	}
+	
+	return filesize;
+}
+
 @end

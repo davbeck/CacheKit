@@ -177,4 +177,14 @@
     [_internalCache removeAllObjects];
 }
 
+- (NSUInteger)currentFilesize {
+	NSError *error = nil;
+	NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:_queue.path error:&error];
+	if (attributes == nil) {
+		NSLog(@"Error reading file attributes: %@", error);
+	}
+	
+	return attributes.fileSize;
+}
+
 @end

@@ -173,4 +173,16 @@
  */
 - (void)removeExpiredObjects;
 
+/** Maximum filesize to use for cached content
+ 
+ When a max file size is set, if the current file size is larger, all the objects in the cache will be removed. This is not checked until the next time the max is set, which is usually on application start.
+ */
+@property (nonatomic) NSUInteger maxFilesize;
+
+/** The current size on disk of the cache
+ 
+ 
+ */
+@property (nonatomic, readonly) NSUInteger currentFilesize;
+
 @end
