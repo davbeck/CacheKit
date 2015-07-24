@@ -11,7 +11,7 @@
 
 @interface CKCacheContent ()
 
-@property (nonatomic, readwrite, copy) id object;
+@property (nonatomic, readwrite, strong) id<NSCoding, NSObject> object;
 @property (nonatomic, readwrite, copy) NSDate *expires;
 
 @end

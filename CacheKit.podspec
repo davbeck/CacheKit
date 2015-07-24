@@ -1,21 +1,28 @@
-Pod::Spec.new do |s|
-  s.name             = "CacheKit"
-  s.version          = "0.1.1"
-  s.summary          = "Easily cache objects in memory, to files, a database or not at all."
-  s.homepage         = "https://github.com/davbeck/CacheKit"
-  s.license          = 'MIT'
-  s.author           = { "David Beck" => "code@thinkultimate.com" }
-  s.source           = { :git => "https://github.com/davbeck/CacheKit.git", :tag => s.version.to_s }
-  s.social_media_url = 'https://twitter.com/davbeck'
-
-  s.platform = :ios, '6.0'
-  s.requires_arc = true
-
-  s.resource_bundles = {
-    'CacheKit' => ['Pod/Assets/*.png']
-  }
+Pod::Spec.new do |spec|
+  spec.name             = "CacheKit"
+  spec.version          = "0.2.0"
+  spec.summary          = "Easily cache objects in memory, to files, a database or not at all."
+  spec.homepage         = "https://github.com/davbeck/CacheKit"
+  spec.license          = 'MIT'
+  spec.author           = { "David Beck" => "code@thinkultimate.com" }
+  spec.source           = { :git => "https://github.com/davbeck/CacheKit.git", :tag => spec.version.to_s }
+  spec.social_media_url = 'https://twitter.com/davbeck'
   
-  s.source_files = 'Pod/Classes'
+  spec.requires_arc = true
+
+  spec.ios.deployment_target = '6.0'
+  spec.osx.deployment_target = '10.8'
   
-  s.dependency 'FMDB', '~> 2.4'
+  spec.dependency 'FMDB', '~> 2.4'
+
+  spec.subspec "Core" do |core_spec|
+    core_spec.source_files = "Pod/Classes"
+  end
+
+  spec.subspec "FastImages" do |fast_images_spec|
+    fast_images_spec.dependency 'CacheKit/Core'
+    
+    fast_images_spec.ios.source_files = 'Pod/FastImages'
+    fast_images_spec.osx.source_files = ''
+  end
 end

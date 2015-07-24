@@ -184,7 +184,7 @@
 		NSLog(@"Error reading file attributes: %@", error);
 	}
 	
-	return attributes.fileSize;
+	return (NSUInteger)attributes.fileSize;
 }
 
 @end
