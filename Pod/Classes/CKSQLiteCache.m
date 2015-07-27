@@ -63,6 +63,10 @@
         _queue = [FMDatabaseQueue databaseQueueWithPath:cacheDirectory];
         [_queue inDatabase:^(FMDatabase *db) {
             [db executeUpdate:@"CREATE TABLE IF NOT EXISTS objects (key TEXT PRIMARY KEY, object BLOB, expires INTEGER);"];
+			
+			if (![db columnExists:@"createdAt" inTableWithName:@"objects"]) {
+				[db executeUpdate:@"ALTER TABLE objects ADD COLUMN createdAt INTEGER"];
+			}
         }];
         
         _internalCache = [NSCache new];
@@ -128,8 +132,12 @@
             
             NSData *objectData = [NSKeyedArchiver archivedDataWithRootObject:object];
             [_queue inDatabase:^(FMDatabase *db) {
-                [db executeUpdate:@"INSERT OR REPLACE INTO objects (key, object, expires) VALUES (?, ?, ?)", key, objectData, expires];
-            }];
+                [db executeUpdate:@"INSERT OR REPLACE INTO objects (key, object, expires, createdAt) VALUES (?, ?, ?, ?)", key, objectData, expires, @([NSDate new].timeIntervalSince1970)];
+			}];
+			
+			dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+				[self trimFilesize];
+			});
         }
     }
     
@@ -144,8 +152,12 @@
     
     NSData *objectData = [NSKeyedArchiver archivedDataWithRootObject:object];
     [_queue inDatabase:^(FMDatabase *db) {
-        [db executeUpdate:@"INSERT OR REPLACE INTO objects (key, object, expires) VALUES (?, ?, ?)", key, objectData, expires];
+        [db executeUpdate:@"INSERT OR REPLACE INTO objects (key, object, expires, createdAt) VALUES (?, ?, ?, ?)", key, objectData, expires, @([NSDate new].timeIntervalSince1970)];
     }];
+	
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+		[self trimFilesize];
+	});
 }
 
 
@@ -185,6 +197,16 @@
 	}
 	
 	return (NSUInteger)attributes.fileSize;
+}
+
+- (void)trimFilesize {
+	if (self.maxFilesize > 0 && self.currentFilesize > self.maxFilesize) {
+		[_queue inDatabase:^(FMDatabase *db) {
+			[db executeUpdate:@"DELETE FROM objects WHERE expires IS NOT NULL AND expires < ?", @([[NSDate date] timeIntervalSince1970])];
+			
+			[db executeUpdate:@"DELETE FROM objects WHERE key IN (SELECT key FROM objects ORDER BY createdAt ASC LIMIT (SELECT COUNT(*) FROM objects) / 2)"];
+		}];
+	}
 }
 
 @end

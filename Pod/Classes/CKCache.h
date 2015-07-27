@@ -173,6 +173,12 @@
  */
 - (void)removeExpiredObjects;
 
+/** Checks the current filesize of the cache and removes enough objects to reduce the size below the maxFilesize.
+ 
+ Subclasses can call this at their discression. Subclasses decide how they will impliment this as well. By default, if the currentFilesize is larger than the maxFilesize, all objects are removed.
+ */
+- (void)trimFilesize;
+
 /** Maximum filesize to use for cached content
  
  When a max file size is set, if the current file size is larger, all the objects in the cache will be removed. This is not checked until the next time the max is set, which is usually on application start.
