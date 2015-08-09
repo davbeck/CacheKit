@@ -23,6 +23,5 @@ Pod::Spec.new do |spec|
     fast_images_spec.dependency 'CacheKit/Core'
     
     fast_images_spec.ios.source_files = 'Pod/FastImages'
-    fast_images_spec.osx.source_files = ''
   end
 end

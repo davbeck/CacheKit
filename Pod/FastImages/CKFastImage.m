@@ -110,7 +110,12 @@ static void CKFastImageRelease(void *info, const void *data, size_t size) {
 
 - (void)dealloc
 {
-	free(_bytes);
+	free((void *)_bytes);
+}
+
+- (instancetype)init
+{
+	return [self initWithBytesNoCopy:NULL length:0 size:CGSizeZero scale:1.0 style:CKFastImageStyle32BitBGRA];
 }
 
 - (instancetype)initWithImage:(UIImage *)image
@@ -153,7 +158,7 @@ static void CKFastImageRelease(void *info, const void *data, size_t size) {
 	CGContextRelease(context);
 	
 	
-	self = [self initWithBytesNoCopy:bytes length:length];
+	self = [self initWithBytesNoCopy:bytes length:length size:size scale:scale style:style];
 	if (self != nil) {
 		_image = [UIImage imageWithCGImage:imageRef scale:scale orientation:UIImageOrientationUp];
 	}
@@ -163,10 +168,13 @@ static void CKFastImageRelease(void *info, const void *data, size_t size) {
 	return self;
 }
 
-- (instancetype)initWithBytesNoCopy:(const void *)data length:(NSUInteger)length
+- (instancetype)initWithBytesNoCopy:(const void *)data length:(NSUInteger)length size:(CGSize)size scale:(CGFloat)scale style:(CKFastImageStyle)style
 {
 	self = [super init];
 	if (self) {
+		_size = size;
+		_scale = scale;
+		_style = style;
 		_bytes = data;
 		_length = length;
 	}
@@ -178,11 +186,11 @@ static void CKFastImageRelease(void *info, const void *data, size_t size) {
 
 - (instancetype)initWithCoder:(NSCoder *)coder
 {
-	self = [super init];
+	self = [self init];
 	if (self) {
 		const void *bytes = [coder decodeBytesForKey:@"bytes" returnedLength:&_length];
 		_bytes = malloc(_length);
-		memcpy(_bytes, bytes, _length);
+		memcpy((void *)_bytes, bytes, _length);
 		
 		_scale = [coder decodeDoubleForKey:@"scale"];
 		_size = CGSizeMake([coder decodeDoubleForKey:@"size.x"], [coder decodeDoubleForKey:@"size.y"]);
