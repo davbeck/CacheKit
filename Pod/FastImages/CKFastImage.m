@@ -149,6 +149,10 @@ static void CKFastImageRelease(void *info, const void *data, size_t size) {
 	CGContextTranslateCTM(context, 0, [self pixelSize].height);
 	CGContextScaleCTM(context, _scale, -_scale);
 	
+	if (_style == CKFastImageStyle32BitBGRA) {
+		CGContextClearRect(context, CGRectMake(0.0, 0.0, size.width, size.height));
+	}
+	
 	// Call drawing block to allow client to draw into the context
 	UIGraphicsPushContext(context);
 	drawing(context);
