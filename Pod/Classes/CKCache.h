@@ -115,6 +115,19 @@
  */
 - (id)objectForKey:(NSString *)key expires:(NSDate *)expires withContent:(id(^)())content;
 
+/** Get the object for the given key if it is cached in memory.
+ 
+ Most caches have an in memory cache to suplement their on disk cache. This method will return
+ the object for the given key only if it can be retrieved quickly from that in memory cache.
+ You can call this and if it returns nil, load the object from disk in a background queue.
+ 
+ Subclasses should return nil if they do not have an in memory cache (the default behavior).
+ 
+ @param key The key to look up the object with.
+ @return The object for the given key, or nil.
+ */
+- (id)objectInMemoryForKey:(NSString *)key;
+
 
 /** Add or replace the object for the given key
  

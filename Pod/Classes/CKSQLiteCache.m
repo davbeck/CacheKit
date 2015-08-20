@@ -144,6 +144,18 @@
     return cacheContent.object;
 }
 
+- (id)objectInMemoryForKey:(NSString *)key
+{
+	CKCacheContent *cacheContent = [_internalCache objectForKey:key];
+	
+	if (cacheContent.expires.timeIntervalSinceNow < 0.0) {
+		[_internalCache removeObjectForKey:key];
+		cacheContent = nil;
+	}
+	
+	return cacheContent.object;
+}
+
 
 - (void)setObject:(id)object forKey:(NSString *)key expires:(NSDate *)expires
 {

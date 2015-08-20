@@ -55,6 +55,11 @@
                                  userInfo:nil];
 }
 
+- (id)objectInMemoryForKey:(NSString *)key
+{
+	return nil;
+}
+
 
 - (void)setObject:(id)obj forKey:(NSString *)key
 {

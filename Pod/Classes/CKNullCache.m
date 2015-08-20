@@ -45,6 +45,11 @@
     return nil;
 }
 
+- (id)objectInMemoryForKey:(NSString *)key
+{
+	return [self objectForKey:key expires:nil withContent:nil];
+}
+
 
 - (void)setObject:(id)object forKey:(NSString *)key expires:(NSDate *)expires
 {
