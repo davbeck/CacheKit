@@ -9,14 +9,6 @@
 #import "CKFastImage.h"
 
 
-
-static void CKFastImageRelease(void *info, const void *data, size_t size) {
-	if (info) {
-		CFRelease(info);
-	}
-}
-
-
 @implementation CKFastImage
 
 @synthesize image = _image;
@@ -108,14 +100,9 @@ static void CKFastImageRelease(void *info, const void *data, size_t size) {
 
 #pragma mark - Initialization
 
-- (void)dealloc
-{
-	free((void *)_bytes);
-}
-
 - (instancetype)init
 {
-	return [self initWithBytesNoCopy:NULL length:0 size:CGSizeZero scale:1.0 style:CKFastImageStyle32BitBGRA];
+	return [self initWithData:nil size:CGSizeZero scale:1.0 style:CKFastImageStyle32BitBGRA];
 }
 
 - (instancetype)initWithImage:(UIImage *)image
@@ -172,16 +159,22 @@ static void CKFastImageRelease(void *info, const void *data, size_t size) {
 	return self;
 }
 
-- (instancetype)initWithBytesNoCopy:(const void *)data length:(NSUInteger)length size:(CGSize)size scale:(CGFloat)scale style:(CKFastImageStyle)style
+- (instancetype)initWithBytesNoCopy:(const void *)bytes length:(NSUInteger)length size:(CGSize)size scale:(CGFloat)scale style:(CKFastImageStyle)style
 {
+	NSData *data = [NSData dataWithBytesNoCopy:bytes length:length];
+	
+	return [self initWithData:data size:size scale:scale style:style];
+}
+
+- (instancetype)initWithData:(NSData *)data size:(CGSize)size scale:(CGFloat)scale style:(CKFastImageStyle)style {
 	self = [super init];
-	if (self) {
+	if (self != nil) {
+		_data = [data copy];
 		_size = size;
 		_scale = scale;
 		_style = style;
-		_bytes = data;
-		_length = length;
 	}
+	
 	return self;
 }
 
@@ -192,9 +185,13 @@ static void CKFastImageRelease(void *info, const void *data, size_t size) {
 {
 	self = [self init];
 	if (self) {
-		const void *bytes = [coder decodeBytesForKey:@"bytes" returnedLength:&_length];
-		_bytes = malloc(_length);
-		memcpy((void *)_bytes, bytes, _length);
+		_data = [coder decodeObjectForKey:@"data"];
+		if (_data == nil) { // backwards compatability
+			NSUInteger length = 0;
+			const void *bytes = [coder decodeBytesForKey:@"bytes" returnedLength:&length];
+			
+			_data = [NSData dataWithBytes:bytes length:length];
+		}
 		
 		_scale = [coder decodeDoubleForKey:@"scale"];
 		_size = CGSizeMake([coder decodeDoubleForKey:@"size.x"], [coder decodeDoubleForKey:@"size.y"]);
@@ -205,7 +202,7 @@ static void CKFastImageRelease(void *info, const void *data, size_t size) {
 }
 
 - (void)encodeWithCoder:(NSCoder *)coder {
-	[coder encodeBytes:_bytes length:_length forKey:@"bytes"];
+	[coder encodeObject:_data forKey:@"data"];
 	
 	[coder encodeDouble:_scale forKey:@"scale"];
 	[coder encodeDouble:_size.width forKey:@"size.x"];
@@ -214,14 +211,14 @@ static void CKFastImageRelease(void *info, const void *data, size_t size) {
 }
 
 - (UIImage *)_decodeImage {
-	if (_length == 0) {
+	if (_data.length == 0) {
 		return nil;
 	}
 	
 	UIImage *image = nil;
 	
 	
-	CGDataProviderRef dataProvider = CGDataProviderCreateWithData((void *)CFBridgingRetain(self), _bytes, _length, CKFastImageRelease);
+	CGDataProviderRef dataProvider = CGDataProviderCreateWithCFData((CFDataRef)_data);
 	
 	CGBitmapInfo bitmapInfo = [self bitmapInfo];
 	CGColorSpaceRef colorSpace = [self isGrayscale] ? CGColorSpaceCreateDeviceGray() : CGColorSpaceCreateDeviceRGB();

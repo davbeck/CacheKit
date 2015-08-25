@@ -59,18 +59,23 @@ typedef NS_ENUM(uint8_t, CKFastImageStyle) {
  @param bytes The buffer containing image data.
  @return A new `CKFastImage` instance.
  */
-- (instancetype)initWithBytesNoCopy:(const void *)data length:(NSUInteger)length size:(CGSize)size scale:(CGFloat)scale style:(CKFastImageStyle)style NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithBytesNoCopy:(const void *)data length:(NSUInteger)length size:(CGSize)size scale:(CGFloat)scale style:(CKFastImageStyle)style __attribute((deprecated(("Use initWithData:size:scale:style: instead."))));
+
+/** Create a `CKFastImage` directly from data.
+ 
+ Use this if you want to serialize an image in some way other than NSCoding.
+ 
+ @param bytes The buffer containing image data.
+ @return A new `CKFastImage` instance.
+ */
+- (instancetype)initWithData:(NSData *)data size:(CGSize)size scale:(CGFloat)scale style:(CKFastImageStyle)style NS_DESIGNATED_INITIALIZER;
 
 
 /** The bytes representing the image.
  
  You can use this to save the image in some form besides NSCoding.
  */
-@property (nonatomic, readonly) const void *bytes;
-
-/** The length of `bytes`.
- */
-@property (nonatomic, readonly) NSUInteger length;
+@property (nonatomic, readonly) NSData *data;
 
 
 /** The image backed by `bytes`.
