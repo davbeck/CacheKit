@@ -52,7 +52,7 @@
 
 - (id)objectForKey:(NSString *)key expires:(NSDate *)expires withContent:(id(^)())content
 {
-    CKCacheContent *cacheContent = [self objectInMemoryForKey:key];
+    CKCacheContent *cacheContent = [self objectInMemoryForKeyInternal:key];
     
     if (cacheContent == nil && content != nil) {
         id object = content();
@@ -67,15 +67,22 @@
 
 - (id)objectInMemoryForKey:(NSString *)key
 {
-	CKCacheContent *cacheContent = [_internalCache objectForKey:key];
-	
-	if (cacheContent.expires.timeIntervalSinceNow < 0.0) {
-		[_internalCache removeObjectForKey:key];
-		cacheContent = nil;
-	}
-	
-	return cacheContent.object;
+    return [self objectInMemoryForKeyInternal:key].object;
 }
+
+
+- (CKCacheContent*)objectInMemoryForKeyInternal:(NSString *)key
+{
+    CKCacheContent *cacheContent = [_internalCache objectForKey:key];
+
+    if (cacheContent.expires.timeIntervalSinceNow < 0.0) {
+        [_internalCache removeObjectForKey:key];
+        cacheContent = nil;
+    }
+
+    return cacheContent;
+}
+
 
 
 - (void)setObject:(id)object forKey:(NSString *)key expires:(NSDate *)expires
