@@ -71,7 +71,7 @@
 }
 
 
-- (id)objectInMemoryForKeyInternal:(NSString *)key
+- (CKCacheContent*)objectInMemoryForKeyInternal:(NSString *)key
 {
     CKCacheContent *cacheContent = [_internalCache objectForKey:key];
 
