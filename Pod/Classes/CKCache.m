@@ -38,40 +38,40 @@
     return [self objectForKey:key expires:nil withContent:nil];
 }
 
-- (id)objectForKey:(NSString *)key withContent:(id(^)())content
+- (nullable id)objectForKey:(nonnull NSString *)key withContent:(nullable CKCacheContentBlock)content
 {
     return [self objectForKey:key expires:nil withContent:content];
 }
 
-- (id)objectForKey:(NSString *)key expiresIn:(NSTimeInterval)expiresIn withContent:(id(^)())content
+- (nullable id)objectForKey:(nonnull NSString *)key expiresIn:(NSTimeInterval)expiresIn withContent:(nullable CKCacheContentBlock)content
 {
     return [self objectForKey:key expires:[NSDate dateWithTimeIntervalSinceNow:expiresIn] withContent:content];
 }
 
-- (id)objectForKey:(NSString *)key expires:(NSDate *)expires withContent:(id(^)())content
+- (nullable id)objectForKey:(nonnull NSString *)key expires:(nullable NSDate *)expires withContent:(nullable CKCacheContentBlock)content
 {
     @throw [NSException exceptionWithName:NSInternalInconsistencyException
                                    reason:[NSString stringWithFormat:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)]
                                  userInfo:nil];
 }
 
-- (id)objectInMemoryForKey:(NSString *)key
+- (nullable id)objectInMemoryForKey:(nonnull NSString *)key
 {
 	return nil;
 }
 
 
-- (void)setObject:(id)obj forKey:(NSString *)key
+- (void)setObject:(nonnull id)obj forKey:(nonnull NSString *)key
 {
     [self setObject:obj forKey:key expires:nil];
 }
 
-- (void)setObject:(id)obj forKey:(NSString *)key expiresIn:(NSTimeInterval)expiresIn
+- (void)setObject:(nonnull id)obj forKey:(nonnull NSString *)key expiresIn:(NSTimeInterval)expiresIn
 {
     [self setObject:obj forKey:key expires:[NSDate dateWithTimeIntervalSinceNow:expiresIn]];
 }
 
-- (void)setObject:(id)obj forKey:(NSString *)key expires:(NSDate *)expires
+- (void)setObject:(nonnull id)obj forKey:(nonnull NSString *)key expires:(NSDate *)expires
 {
     @throw [NSException exceptionWithName:NSInternalInconsistencyException
                                    reason:[NSString stringWithFormat:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)]

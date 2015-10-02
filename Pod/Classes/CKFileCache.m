@@ -86,7 +86,7 @@
     return [self objectForKey:key] != nil;
 }
 
-- (id)objectForKey:(NSString *)key expires:(NSDate *)expires withContent:(id(^)())content
+- (id)objectForKey:(NSString *)key expires:(NSDate *)expires withContent:(CKCacheContentBlock)content
 {
     __block CKCacheContent *cacheContent = [_internalCache objectForKey:key];
     

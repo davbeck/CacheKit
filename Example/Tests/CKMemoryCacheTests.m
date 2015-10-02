@@ -14,7 +14,7 @@
 
 @interface CKMemoryCacheTests : XCTestCase
 {
-    CKMemoryCache *_cache;
+    CKMemoryCache<NSNumber *> *_cache;
 }
 
 @end

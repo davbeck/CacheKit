@@ -50,7 +50,7 @@
     return cacheContent != nil && cacheContent.expires.timeIntervalSinceNow >= 0;
 }
 
-- (id)objectForKey:(NSString *)key expires:(NSDate *)expires withContent:(id(^)())content
+- (id)objectForKey:(NSString *)key expires:(NSDate *)expires withContent:(CKCacheContentBlock)content
 {
     id object = [self objectInMemoryForKey:key];
     

@@ -36,7 +36,7 @@
     return NO;
 }
 
-- (id)objectForKey:(NSString *)key expires:(NSDate *)expires withContent:(id(^)())content
+- (id)objectForKey:(NSString *)key expires:(NSDate *)expires withContent:(CKCacheContentBlock)content
 {
     if (content != nil) {
         return content();

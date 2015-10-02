@@ -149,7 +149,8 @@
 	CGContextRelease(context);
 	
 	
-	self = [self initWithBytesNoCopy:bytes length:length size:size scale:scale style:style];
+	NSData *data = [NSData dataWithBytesNoCopy:bytes length:length];
+	self = [self initWithData:data size:size scale:scale style:style];
 	if (self != nil) {
 		_image = [UIImage imageWithCGImage:imageRef scale:scale orientation:UIImageOrientationUp];
 	}
@@ -159,7 +160,7 @@
 	return self;
 }
 
-- (instancetype)initWithBytesNoCopy:(const void *)bytes length:(NSUInteger)length size:(CGSize)size scale:(CGFloat)scale style:(CKFastImageStyle)style
+- (instancetype)initWithBytesNoCopy:(void *)bytes length:(NSUInteger)length size:(CGSize)size scale:(CGFloat)scale style:(CKFastImageStyle)style
 {
 	NSData *data = [NSData dataWithBytesNoCopy:bytes length:length];
 	

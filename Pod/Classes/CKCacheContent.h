@@ -8,11 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-@interface CKCacheContent : NSObject <NSCoding, NSCopying>
+@interface CKCacheContent<__covariant ObjectType:id<NSCoding, NSObject>> : NSObject <NSCoding, NSCopying>
 
-+ (nonnull instancetype)cacheContentWithObject:(nonnull id)object expires:(nullable NSDate *)expires;
++ (nonnull instancetype)cacheContentWithObject:(nonnull ObjectType)object expires:(nullable NSDate *)expires;
 
-@property (nonatomic, readonly, strong, nonnull) id<NSCoding, NSObject> object;
+@property (nonatomic, readonly, strong, nonnull) ObjectType object;
 @property (nonatomic, readonly, copy, nullable) NSDate *expires;
 
 @end

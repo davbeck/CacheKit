@@ -14,7 +14,7 @@
 
 @interface CKSQLiteCacheTests : XCTestCase
 {
-    CKSQLiteCache *_cache;
+    CKSQLiteCache<NSNumber *> *_cache;
 }
 
 @end
@@ -61,7 +61,7 @@
 {
     XCTAssertFalse([_cache objectExistsForKey:@"A"], @"objectExistsForKey at beginning of test.");
     
-    id object = [_cache objectForKey:@"A" withContent:^{
+    NSNumber *object = [_cache objectForKey:@"A" withContent:^{
         return @1;
     }];
     XCTAssertEqualObjects(object, @1, @"objectForKey:withContent: did not return correct object.");
@@ -75,7 +75,7 @@
     XCTAssertFalse([_cache objectExistsForKey:@"A"], @"Expired object exists.");
     XCTAssertEqualObjects([_cache objectForKey:@"A"], nil, @"Expired object returned.");
     
-    id object = [_cache objectForKey:@"A" withContent:^{
+    NSNumber *object = [_cache objectForKey:@"A" withContent:^{
         return @2;
     }];
     XCTAssertEqualObjects(object, @2, @"objectForKey:withContent: did not return correct object.");

@@ -16,7 +16,7 @@
  This is useful for testing your app without caching, but using the same interface as your
  production cache.
  */
-@interface CKNullCache : CKCache
+@interface CKNullCache<__covariant ObjectType:id<NSCoding, NSObject>> : CKCache
 
 /** A shared null cache.
  

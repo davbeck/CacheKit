@@ -14,7 +14,7 @@
 
 @interface CKFileCacheTests : XCTestCase
 {
-    CKFileCache *_cache;
+    CKFileCache<NSNumber *> *_cache;
 }
 
 @end

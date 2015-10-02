@@ -17,7 +17,7 @@
  Internally, memory caches use `NSCache` to store their objects. Because of this, objects will be
  released during memory warning.
  */
-@interface CKMemoryCache : CKCache
+@interface CKMemoryCache<__covariant ObjectType:id<NSCoding, NSObject>> : CKCache
 
 /** A shared memory cache.
  

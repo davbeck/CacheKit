@@ -59,7 +59,7 @@ typedef NS_ENUM(uint8_t, CKFastImageStyle) {
  @param bytes The buffer containing image data.
  @return A new `CKFastImage` instance.
  */
-- (instancetype)initWithBytesNoCopy:(const void *)data length:(NSUInteger)length size:(CGSize)size scale:(CGFloat)scale style:(CKFastImageStyle)style __attribute((deprecated(("Use initWithData:size:scale:style: instead."))));
+- (instancetype)initWithBytesNoCopy:(void *)data length:(NSUInteger)length size:(CGSize)size scale:(CGFloat)scale style:(CKFastImageStyle)style __attribute((deprecated(("Use initWithData:size:scale:style: instead."))));
 
 /** Create a `CKFastImage` directly from data.
  

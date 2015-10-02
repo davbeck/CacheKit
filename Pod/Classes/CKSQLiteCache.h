@@ -19,7 +19,7 @@
  Notice: Objects must conform to the `NSCoding` protocol. Internally, objects are encoded
  using `NSCoding`. Properties are not stored as columns.
  */
-@interface CKSQLiteCache : CKCache
+@interface CKSQLiteCache<__covariant ObjectType:id<NSCoding, NSObject>> : CKCache
 
 /** A shared database cache.
  
