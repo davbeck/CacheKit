@@ -30,7 +30,7 @@
  
  @return A singleton instance of a file cache.
  */
-+ (instancetype)sharedCache;
++ (nonnull instancetype)sharedCache;
 
 /** Clear the internal in memory cache
  

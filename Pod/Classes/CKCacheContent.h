@@ -10,9 +10,9 @@
 
 @interface CKCacheContent : NSObject <NSCoding, NSCopying>
 
-+ (instancetype)cacheContentWithObject:(id)object expires:(NSDate *)expires;
++ (nonnull instancetype)cacheContentWithObject:(nonnull id)object expires:(nullable NSDate *)expires;
 
-@property (nonatomic, readonly, strong) id<NSCoding, NSObject> object;
-@property (nonatomic, readonly, copy) NSDate *expires;
+@property (nonatomic, readonly, strong, nonnull) id<NSCoding, NSObject> object;
+@property (nonatomic, readonly, copy, nullable) NSDate *expires;
 
 @end

@@ -26,6 +26,6 @@
  
  @return A singleton instance of a memory cache.
  */
-+ (instancetype)sharedCache;
++ (nonnull instancetype)sharedCache;
 
 @end

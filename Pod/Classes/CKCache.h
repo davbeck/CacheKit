@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 
 
+typedef _Nonnull id(^CKCacheContentBlock)();
+
+
 /** The CacheKit base class.
  
  This class serves as the abstract base class for other caches. You cannot create a CKCache
@@ -46,7 +49,7 @@
  same name for the cache each time the app is launched.
  @return A new cache with the given name.
  */
-- (instancetype)initWithName:(NSString *)name NS_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithName:(nonnull NSString *)name NS_DESIGNATED_INITIALIZER;
 
 /** The name for the cache.
  
@@ -56,7 +59,7 @@
  
  The name of the cache should not change.
  */
-@property (readonly, copy) NSString *name;
+@property (readonly, copy, nonnull) NSString *name;
 
 
 /** Whether an object exists for the given key.
@@ -66,7 +69,7 @@
  @param key The key to look up the object with.
  @return `YES` if any object exists with that key, `NO` otherwise.
  */
-- (BOOL)objectExistsForKey:(NSString *)key;
+- (BOOL)objectExistsForKey:(nonnull NSString *)key;
 
 /** Get the object for the given key.
  
@@ -75,7 +78,7 @@
  @param key The key to look up the object with.
  @return The object for the given key, or nil.
  */
-- (id)objectForKey:(NSString *)key;
+- (nullable id)objectForKey:(nonnull NSString *)key;
 
 /** Get the object for the given key.
  
@@ -86,7 +89,7 @@
  @param content The block that provides an object when the cache misses. Can be nil.
  @return The object for the given key, or nil.
  */
-- (id)objectForKey:(NSString *)key withContent:(id(^)())content;
+- (nullable id)objectForKey:(nonnull NSString *)key withContent:(nullable CKCacheContentBlock)content;
 
 /** Get the object for the given key.
  
@@ -100,7 +103,7 @@
  @param content The block that provides an object when the cache misses. Can be nil.
  @return The object for the given key, or nil.
  */
-- (id)objectForKey:(NSString *)key expiresIn:(NSTimeInterval)expiresIn withContent:(id(^)())content;
+- (nullable id)objectForKey:(nonnull NSString *)key expiresIn:(NSTimeInterval)expiresIn withContent:(nullable CKCacheContentBlock)content;
 
 /** Get the object for the given key.
  
@@ -113,7 +116,7 @@
  @param content The block that provides an object when the cache misses. Can be nil.
  @return The object for the given key, or nil.
  */
-- (id)objectForKey:(NSString *)key expires:(NSDate *)expires withContent:(id(^)())content;
+- (nullable id)objectForKey:(nonnull NSString *)key expires:(nullable NSDate *)expires withContent:(nullable CKCacheContentBlock)content;
 
 /** Get the object for the given key if it is cached in memory.
  
@@ -126,7 +129,7 @@
  @param key The key to look up the object with.
  @return The object for the given key, or nil.
  */
-- (id)objectInMemoryForKey:(NSString *)key;
+- (nullable id)objectInMemoryForKey:(nonnull NSString *)key;
 
 
 /** Add or replace the object for the given key
@@ -136,7 +139,7 @@
  @param obj The object to store in the cache.
  @param key The key to store the object as.
  */
-- (void)setObject:(id)obj forKey:(NSString *)key;
+- (void)setObject:(nonnull id)obj forKey:(nonnull NSString *)key;
 
 /** Add or replace the object for the given key
  
@@ -148,7 +151,7 @@
  @param expiresIn The amount of seconds before the content object will expire. If this number is
  <= 0 the object will typically be stored but ignored on subsequent requests.
  */
-- (void)setObject:(id)obj forKey:(NSString *)key expiresIn:(NSTimeInterval)expiresIn;
+- (void)setObject:(nonnull id)obj forKey:(nonnull NSString *)key expiresIn:(NSTimeInterval)expiresIn;
 
 /** Add or replace the object for the given key
  
@@ -159,7 +162,7 @@
  @param key The key to store the object as.
  @param expires When the content object should expire.
  */
-- (void)setObject:(id)obj forKey:(NSString *)key expires:(NSDate *)expires;
+- (void)setObject:(nonnull id)obj forKey:(nonnull NSString *)key expires:(nullable NSDate *)expires;
 
 
 /** Remove the object stored in key.
@@ -168,7 +171,7 @@
  
  @param key The key to store the object as.
  */
-- (void)removeObjectForKey:(NSString *)key;
+- (void)removeObjectForKey:(nonnull NSString *)key;
 
 /** Remove all objects in the cache.
  

@@ -25,6 +25,6 @@
  
  @return A shared useless cache.
  */
-+ (instancetype)sharedCache;
++ (nonnull instancetype)sharedCache;
 
 @end

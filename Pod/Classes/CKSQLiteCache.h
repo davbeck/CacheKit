@@ -28,7 +28,7 @@
  
  @return A singleton instance of a database cache.
  */
-+ (instancetype)sharedCache;
++ (nonnull instancetype)sharedCache;
 
 /** Clear the internal in memory cache
  
