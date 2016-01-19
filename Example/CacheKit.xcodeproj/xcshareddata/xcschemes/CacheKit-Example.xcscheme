@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0720"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6003F589195388D20070C39A"
-               BuildableName = "CacheKit.app"
-               BlueprintName = "CacheKit"
+               BuildableName = "CacheKit_Example.app"
+               BlueprintName = "CacheKit_Example"
                ReferencedContainer = "container:CacheKit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -33,8 +33,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6003F5AD195388D20070C39A"
-               BuildableName = "Tests.xctest"
-               BlueprintName = "Tests"
+               BuildableName = "CacheKit_Tests.xctest"
+               BlueprintName = "CacheKit_Tests"
                ReferencedContainer = "container:CacheKit.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -43,8 +43,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6003F589195388D20070C39A"
-            BuildableName = "CacheKit.app"
-            BlueprintName = "CacheKit"
+            BuildableName = "CacheKit_Example.app"
+            BlueprintName = "CacheKit_Example"
             ReferencedContainer = "container:CacheKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -66,8 +66,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6003F589195388D20070C39A"
-            BuildableName = "CacheKit.app"
-            BlueprintName = "CacheKit"
+            BuildableName = "CacheKit_Example.app"
+            BlueprintName = "CacheKit_Example"
             ReferencedContainer = "container:CacheKit.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -85,8 +85,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6003F589195388D20070C39A"
-            BuildableName = "CacheKit.app"
-            BlueprintName = "CacheKit"
+            BuildableName = "CacheKit_Example.app"
+            BlueprintName = "CacheKit_Example"
             ReferencedContainer = "container:CacheKit.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

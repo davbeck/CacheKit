@@ -8,6 +8,8 @@
 
 #import "CKCache.h"
 
+#if TARGET_OS_IOS || TARGET_OS_TV
+
 @interface CKCache (CKFastImages)
 
 /** Add an image to the cache using `CKFastImage`.
@@ -45,3 +47,5 @@
 - (UIImage *)imageForKey:(NSString *)key;
 
 @end
+
+#endif

@@ -9,6 +9,8 @@
 #import "CKFastImage.h"
 
 
+#if TARGET_OS_IOS || TARGET_OS_TV
+
 @implementation CKFastImage
 
 @synthesize image = _image;
@@ -243,3 +245,5 @@
 }
 
 @end
+
+#endif

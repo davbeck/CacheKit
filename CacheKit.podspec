@@ -16,12 +16,12 @@ Pod::Spec.new do |spec|
   spec.dependency 'FMDB', '~> 2.4'
 
   spec.subspec "Core" do |core_spec|
-    core_spec.source_files = "Pod/Classes"
+    core_spec.source_files = "CacheKit/Classes/**/*"
   end
 
   spec.subspec "FastImages" do |fast_images_spec|
     fast_images_spec.dependency 'CacheKit/Core'
     
-    fast_images_spec.ios.source_files = 'Pod/FastImages'
+    fast_images_spec.ios.source_files = 'CacheKit/FastImages/**/*'
   end
 end

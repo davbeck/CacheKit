@@ -1,9 +1,9 @@
 source 'https://github.com/CocoaPods/Specs.git'
+use_frameworks!
 
-target 'CacheKit', :exclusive => true do
-  pod "CacheKit", :path => "../"
-end
 
-target 'Tests', :exclusive => true do
+target 'CacheKit_Tests', :exclusive => true do
   pod "CacheKit", :path => "../"
+
+  
 end

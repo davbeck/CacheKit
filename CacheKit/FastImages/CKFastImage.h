@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 
 
+#if TARGET_OS_IOS || TARGET_OS_TV
+
 typedef NS_ENUM(uint8_t, CKFastImageStyle) {
 	CKFastImageStyle32BitBGRA = 0,
 	CKFastImageStyle32BitBGR,
@@ -102,3 +104,5 @@ typedef NS_ENUM(uint8_t, CKFastImageStyle) {
 @property (nonatomic, readonly) CKFastImageStyle style;
 
 @end
+
+#endif

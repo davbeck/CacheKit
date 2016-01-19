@@ -11,6 +11,9 @@
 #import "CKFastImage.h"
 
 
+#if TARGET_OS_IOS || TARGET_OS_TV
+
+
 inline size_t FICByteAlign(size_t width, size_t alignment) {
 	return ((width + (alignment - 1)) / alignment) * alignment;
 }
@@ -51,3 +54,5 @@ inline size_t FICByteAlignForCoreAnimation(size_t bytesPerRow) {
 }
 
 @end
+
+#endif
