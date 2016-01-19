@@ -1,0 +1,6 @@
+framework module CacheKit {
+  umbrella header "CacheKit-umbrella.h"
+
+  export *
+  module * { export * }
+}
