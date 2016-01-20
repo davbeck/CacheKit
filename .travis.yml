@@ -1,8 +1,23 @@
-# reference: http://www.objc.io/issue-6/travis-ci.html
-
 language: objective-c
+osx_image: xcode7.2
+xcode_workspace: CacheKit.xcworkspace
+xcode_scheme: CacheKit
+xcode_sdk: iphonesimulator9.2
+env:
+  global:
+  - FRAMEWORK_NAME=CacheKit
 before_install:
-  - gem install cocoapods --no-rdoc --no-ri --no-document --quiet
-  - cd Example && pod install && cd -
-script:
-- xctool test -workspace Example/CacheKit.xcworkspace -scheme CacheKit -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
+- brew update
+- brew install carthage
+before_deploy:
+- carthage build --no-skip-current
+- carthage archive $FRAMEWORK_NAME
+deploy:
+  provider: releases
+  api_key:
+    secure: FmSjotx7xtSYibODqnJH1ztGuucXWrhPOG4Yi6DCl4DdFD14pqNdPKbEpTUPsMyNmtiNZhrw5Ey8QCbhnL986eQhltsEGlGcY1V3lRdRd7BONuVEZ0kx/Fd5Br3p37Xz1FUAJnzM3M0Q14KPpUbYPRqyVhxPgfosl6SSkmmDpqQ=
+  file: "$FRAMEWORK_NAME.framework.zip"
+  skip_cleanup: true
+  on:
+    repo: davbeck/CacheKit
+    tags: true
