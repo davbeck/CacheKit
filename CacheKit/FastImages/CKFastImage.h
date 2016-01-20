@@ -11,6 +11,9 @@
 
 #if TARGET_OS_IOS || TARGET_OS_TV
 
+#import <UIKit/UIKit.h>
+
+
 typedef NS_ENUM(uint8_t, CKFastImageStyle) {
 	CKFastImageStyle32BitBGRA = 0,
 	CKFastImageStyle32BitBGR,

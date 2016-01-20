@@ -1,0 +1,3 @@
+[submodule "fmdb"]
+	path = fmdb
+	url = https://davbeck@github.com/ccgus/fmdb.git

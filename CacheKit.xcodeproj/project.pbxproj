@@ -1,0 +1,525 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1158916A1C50115A004BC21F /* CacheKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1158915F1C50115A004BC21F /* CacheKit.framework */; };
+		1158917A1C50126D004BC21F /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 115891791C50126D004BC21F /* FMDB.framework */; };
+		115891B21C5012C1004BC21F /* CacheKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 115891A41C5012C1004BC21F /* CacheKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		115891B31C5012C1004BC21F /* CKCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 115891A51C5012C1004BC21F /* CKCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		115891B41C5012C1004BC21F /* CKCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 115891A61C5012C1004BC21F /* CKCache.m */; };
+		115891B51C5012C1004BC21F /* CKCacheContent.h in Headers */ = {isa = PBXBuildFile; fileRef = 115891A71C5012C1004BC21F /* CKCacheContent.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		115891B61C5012C1004BC21F /* CKCacheContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 115891A81C5012C1004BC21F /* CKCacheContent.m */; };
+		115891B71C5012C1004BC21F /* CKFileCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 115891A91C5012C1004BC21F /* CKFileCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		115891B81C5012C1004BC21F /* CKFileCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 115891AA1C5012C1004BC21F /* CKFileCache.m */; };
+		115891B91C5012C1004BC21F /* CKMemoryCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 115891AB1C5012C1004BC21F /* CKMemoryCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		115891BA1C5012C1004BC21F /* CKMemoryCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 115891AC1C5012C1004BC21F /* CKMemoryCache.m */; };
+		115891BB1C5012C1004BC21F /* CKNullCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 115891AD1C5012C1004BC21F /* CKNullCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		115891BC1C5012C1004BC21F /* CKNullCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 115891AE1C5012C1004BC21F /* CKNullCache.m */; };
+		115891BD1C5012C1004BC21F /* CKSQLiteCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 115891AF1C5012C1004BC21F /* CKSQLiteCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		115891BE1C5012C1004BC21F /* CKSQLiteCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 115891B01C5012C1004BC21F /* CKSQLiteCache.m */; };
+		115891C41C5012D3004BC21F /* CKCache+CKFastImages.h in Headers */ = {isa = PBXBuildFile; fileRef = 115891C01C5012D3004BC21F /* CKCache+CKFastImages.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		115891C51C5012D3004BC21F /* CKCache+CKFastImages.m in Sources */ = {isa = PBXBuildFile; fileRef = 115891C11C5012D3004BC21F /* CKCache+CKFastImages.m */; };
+		115891C61C5012D3004BC21F /* CKFastImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 115891C21C5012D3004BC21F /* CKFastImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		115891C71C5012D3004BC21F /* CKFastImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 115891C31C5012D3004BC21F /* CKFastImage.m */; };
+		115891CC1C501333004BC21F /* CKFileCacheTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 115891C81C501333004BC21F /* CKFileCacheTests.m */; };
+		115891CD1C501333004BC21F /* CKMemoryCacheTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 115891C91C501333004BC21F /* CKMemoryCacheTests.m */; };
+		115891CE1C501333004BC21F /* CKNullCacheTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 115891CA1C501333004BC21F /* CKNullCacheTests.m */; };
+		115891CF1C501333004BC21F /* CKSQLiteCacheTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 115891CB1C501333004BC21F /* CKSQLiteCacheTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1158916B1C50115A004BC21F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 115891561C50115A004BC21F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1158915E1C50115A004BC21F;
+			remoteInfo = CacheKit;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1113BDAF1C501B4E007E9FD6 /* ModuleMap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ModuleMap; sourceTree = "<group>"; };
+		1158915F1C50115A004BC21F /* CacheKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CacheKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		115891641C50115A004BC21F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		115891691C50115A004BC21F /* CacheKit-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CacheKit-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		115891701C50115A004BC21F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		115891791C50126D004BC21F /* FMDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FMDB.framework; path = "fmdb/build/Debug-iphoneos/FMDB.framework"; sourceTree = "<group>"; };
+		115891A41C5012C1004BC21F /* CacheKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacheKit.h; sourceTree = "<group>"; };
+		115891A51C5012C1004BC21F /* CKCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCache.h; sourceTree = "<group>"; };
+		115891A61C5012C1004BC21F /* CKCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKCache.m; sourceTree = "<group>"; };
+		115891A71C5012C1004BC21F /* CKCacheContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCacheContent.h; sourceTree = "<group>"; };
+		115891A81C5012C1004BC21F /* CKCacheContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKCacheContent.m; sourceTree = "<group>"; };
+		115891A91C5012C1004BC21F /* CKFileCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKFileCache.h; sourceTree = "<group>"; };
+		115891AA1C5012C1004BC21F /* CKFileCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKFileCache.m; sourceTree = "<group>"; };
+		115891AB1C5012C1004BC21F /* CKMemoryCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKMemoryCache.h; sourceTree = "<group>"; };
+		115891AC1C5012C1004BC21F /* CKMemoryCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKMemoryCache.m; sourceTree = "<group>"; };
+		115891AD1C5012C1004BC21F /* CKNullCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKNullCache.h; sourceTree = "<group>"; };
+		115891AE1C5012C1004BC21F /* CKNullCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKNullCache.m; sourceTree = "<group>"; };
+		115891AF1C5012C1004BC21F /* CKSQLiteCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKSQLiteCache.h; sourceTree = "<group>"; };
+		115891B01C5012C1004BC21F /* CKSQLiteCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKSQLiteCache.m; sourceTree = "<group>"; };
+		115891C01C5012D3004BC21F /* CKCache+CKFastImages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CKCache+CKFastImages.h"; sourceTree = "<group>"; };
+		115891C11C5012D3004BC21F /* CKCache+CKFastImages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CKCache+CKFastImages.m"; sourceTree = "<group>"; };
+		115891C21C5012D3004BC21F /* CKFastImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKFastImage.h; sourceTree = "<group>"; };
+		115891C31C5012D3004BC21F /* CKFastImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKFastImage.m; sourceTree = "<group>"; };
+		115891C81C501333004BC21F /* CKFileCacheTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKFileCacheTests.m; sourceTree = "<group>"; };
+		115891C91C501333004BC21F /* CKMemoryCacheTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKMemoryCacheTests.m; sourceTree = "<group>"; };
+		115891CA1C501333004BC21F /* CKNullCacheTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKNullCacheTests.m; sourceTree = "<group>"; };
+		115891CB1C501333004BC21F /* CKSQLiteCacheTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKSQLiteCacheTests.m; sourceTree = "<group>"; };
+		1158922F1C5015F3004BC21F /* CacheKit-Mac.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CacheKit-Mac.h"; sourceTree = "<group>"; };
+		115892311C5015F3004BC21F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1158923B1C5015F3004BC21F /* CacheKit_MacTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CacheKit_MacTests.m; sourceTree = "<group>"; };
+		1158923D1C5015F3004BC21F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1158925B1C501706004BC21F /* FMDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FMDB.framework; path = fmdb/build/Debug/FMDB.framework; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1158915B1C50115A004BC21F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1158917A1C50126D004BC21F /* FMDB.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		115891661C50115A004BC21F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1158916A1C50115A004BC21F /* CacheKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		115891551C50115A004BC21F = {
+			isa = PBXGroup;
+			children = (
+				1158922E1C5015F3004BC21F /* CacheKit-Mac */,
+				1158923A1C5015F3004BC21F /* CacheKit-MacTests */,
+				1158917B1C501276004BC21F /* Frameworks */,
+				115891611C50115A004BC21F /* CacheKit */,
+				1158916D1C50115A004BC21F /* CacheKitTests */,
+				115891601C50115A004BC21F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		115891601C50115A004BC21F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1158915F1C50115A004BC21F /* CacheKit.framework */,
+				115891691C50115A004BC21F /* CacheKit-iOSTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		115891611C50115A004BC21F /* CacheKit */ = {
+			isa = PBXGroup;
+			children = (
+				115891A21C5012C1004BC21F /* Classes */,
+				115891BF1C5012D3004BC21F /* FastImages */,
+				115891641C50115A004BC21F /* Info.plist */,
+				1113BDAF1C501B4E007E9FD6 /* ModuleMap */,
+			);
+			path = CacheKit;
+			sourceTree = "<group>";
+		};
+		1158916D1C50115A004BC21F /* CacheKitTests */ = {
+			isa = PBXGroup;
+			children = (
+				115891C81C501333004BC21F /* CKFileCacheTests.m */,
+				115891C91C501333004BC21F /* CKMemoryCacheTests.m */,
+				115891CA1C501333004BC21F /* CKNullCacheTests.m */,
+				115891CB1C501333004BC21F /* CKSQLiteCacheTests.m */,
+				115891701C50115A004BC21F /* Info.plist */,
+			);
+			path = CacheKitTests;
+			sourceTree = "<group>";
+		};
+		1158917B1C501276004BC21F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1158925B1C501706004BC21F /* FMDB.framework */,
+				115891791C50126D004BC21F /* FMDB.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		115891A21C5012C1004BC21F /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				115891A41C5012C1004BC21F /* CacheKit.h */,
+				115891A51C5012C1004BC21F /* CKCache.h */,
+				115891A61C5012C1004BC21F /* CKCache.m */,
+				115891A71C5012C1004BC21F /* CKCacheContent.h */,
+				115891A81C5012C1004BC21F /* CKCacheContent.m */,
+				115891A91C5012C1004BC21F /* CKFileCache.h */,
+				115891AA1C5012C1004BC21F /* CKFileCache.m */,
+				115891AB1C5012C1004BC21F /* CKMemoryCache.h */,
+				115891AC1C5012C1004BC21F /* CKMemoryCache.m */,
+				115891AD1C5012C1004BC21F /* CKNullCache.h */,
+				115891AE1C5012C1004BC21F /* CKNullCache.m */,
+				115891AF1C5012C1004BC21F /* CKSQLiteCache.h */,
+				115891B01C5012C1004BC21F /* CKSQLiteCache.m */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		115891BF1C5012D3004BC21F /* FastImages */ = {
+			isa = PBXGroup;
+			children = (
+				115891C01C5012D3004BC21F /* CKCache+CKFastImages.h */,
+				115891C11C5012D3004BC21F /* CKCache+CKFastImages.m */,
+				115891C21C5012D3004BC21F /* CKFastImage.h */,
+				115891C31C5012D3004BC21F /* CKFastImage.m */,
+			);
+			path = FastImages;
+			sourceTree = "<group>";
+		};
+		1158922E1C5015F3004BC21F /* CacheKit-Mac */ = {
+			isa = PBXGroup;
+			children = (
+				1158922F1C5015F3004BC21F /* CacheKit-Mac.h */,
+				115892311C5015F3004BC21F /* Info.plist */,
+			);
+			path = "CacheKit-Mac";
+			sourceTree = "<group>";
+		};
+		1158923A1C5015F3004BC21F /* CacheKit-MacTests */ = {
+			isa = PBXGroup;
+			children = (
+				1158923B1C5015F3004BC21F /* CacheKit_MacTests.m */,
+				1158923D1C5015F3004BC21F /* Info.plist */,
+			);
+			path = "CacheKit-MacTests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		1158915C1C50115A004BC21F /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				115891BD1C5012C1004BC21F /* CKSQLiteCache.h in Headers */,
+				115891B21C5012C1004BC21F /* CacheKit.h in Headers */,
+				115891B71C5012C1004BC21F /* CKFileCache.h in Headers */,
+				115891C41C5012D3004BC21F /* CKCache+CKFastImages.h in Headers */,
+				115891BB1C5012C1004BC21F /* CKNullCache.h in Headers */,
+				115891B91C5012C1004BC21F /* CKMemoryCache.h in Headers */,
+				115891B51C5012C1004BC21F /* CKCacheContent.h in Headers */,
+				115891C61C5012D3004BC21F /* CKFastImage.h in Headers */,
+				115891B31C5012C1004BC21F /* CKCache.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		1158915E1C50115A004BC21F /* CacheKit-iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 115891731C50115A004BC21F /* Build configuration list for PBXNativeTarget "CacheKit-iOS" */;
+			buildPhases = (
+				1158915A1C50115A004BC21F /* Sources */,
+				1158915B1C50115A004BC21F /* Frameworks */,
+				1158915C1C50115A004BC21F /* Headers */,
+				1158915D1C50115A004BC21F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "CacheKit-iOS";
+			productName = CacheKit;
+			productReference = 1158915F1C50115A004BC21F /* CacheKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		115891681C50115A004BC21F /* CacheKit-iOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 115891761C50115A004BC21F /* Build configuration list for PBXNativeTarget "CacheKit-iOSTests" */;
+			buildPhases = (
+				115891651C50115A004BC21F /* Sources */,
+				115891661C50115A004BC21F /* Frameworks */,
+				115891671C50115A004BC21F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1158916C1C50115A004BC21F /* PBXTargetDependency */,
+			);
+			name = "CacheKit-iOSTests";
+			productName = CacheKitTests;
+			productReference = 115891691C50115A004BC21F /* CacheKit-iOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		115891561C50115A004BC21F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = "Think Ultimate";
+				TargetAttributes = {
+					1158915E1C50115A004BC21F = {
+						CreatedOnToolsVersion = 7.2;
+					};
+					115891681C50115A004BC21F = {
+						CreatedOnToolsVersion = 7.2;
+					};
+				};
+			};
+			buildConfigurationList = 115891591C50115A004BC21F /* Build configuration list for PBXProject "CacheKit" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 115891551C50115A004BC21F;
+			productRefGroup = 115891601C50115A004BC21F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1158915E1C50115A004BC21F /* CacheKit-iOS */,
+				115891681C50115A004BC21F /* CacheKit-iOSTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1158915D1C50115A004BC21F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		115891671C50115A004BC21F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1158915A1C50115A004BC21F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				115891BE1C5012C1004BC21F /* CKSQLiteCache.m in Sources */,
+				115891B81C5012C1004BC21F /* CKFileCache.m in Sources */,
+				115891BC1C5012C1004BC21F /* CKNullCache.m in Sources */,
+				115891BA1C5012C1004BC21F /* CKMemoryCache.m in Sources */,
+				115891B61C5012C1004BC21F /* CKCacheContent.m in Sources */,
+				115891C51C5012D3004BC21F /* CKCache+CKFastImages.m in Sources */,
+				115891B41C5012C1004BC21F /* CKCache.m in Sources */,
+				115891C71C5012D3004BC21F /* CKFastImage.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		115891651C50115A004BC21F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				115891CC1C501333004BC21F /* CKFileCacheTests.m in Sources */,
+				115891CE1C501333004BC21F /* CKNullCacheTests.m in Sources */,
+				115891CF1C501333004BC21F /* CKSQLiteCacheTests.m in Sources */,
+				115891CD1C501333004BC21F /* CKMemoryCacheTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1158916C1C50115A004BC21F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1158915E1C50115A004BC21F /* CacheKit-iOS */;
+			targetProxy = 1158916B1C50115A004BC21F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		115891711C50115A004BC21F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		115891721C50115A004BC21F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		115891741C50115A004BC21F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = CacheKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ThinkUltimate.CacheKit-iOS";
+				PRODUCT_NAME = CacheKit;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		115891751C50115A004BC21F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = CacheKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ThinkUltimate.CacheKit-iOS";
+				PRODUCT_NAME = CacheKit;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		115891771C50115A004BC21F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = CacheKitTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ThinkUltimate.CacheKitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		115891781C50115A004BC21F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = CacheKitTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ThinkUltimate.CacheKitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		115891591C50115A004BC21F /* Build configuration list for PBXProject "CacheKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				115891711C50115A004BC21F /* Debug */,
+				115891721C50115A004BC21F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		115891731C50115A004BC21F /* Build configuration list for PBXNativeTarget "CacheKit-iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				115891741C50115A004BC21F /* Debug */,
+				115891751C50115A004BC21F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		115891761C50115A004BC21F /* Build configuration list for PBXNativeTarget "CacheKit-iOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				115891771C50115A004BC21F /* Debug */,
+				115891781C50115A004BC21F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 115891561C50115A004BC21F /* Project object */;
+}

@@ -10,6 +10,9 @@
 
 #if TARGET_OS_IOS || TARGET_OS_TV
 
+#import <UIKit/UIKit.h>
+
+
 @interface CKCache (CKFastImages)
 
 /** Add an image to the cache using `CKFastImage`.
