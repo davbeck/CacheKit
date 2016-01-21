@@ -70,10 +70,6 @@
 		115891C91C501333004BC21F /* CKMemoryCacheTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKMemoryCacheTests.m; sourceTree = "<group>"; };
 		115891CA1C501333004BC21F /* CKNullCacheTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKNullCacheTests.m; sourceTree = "<group>"; };
 		115891CB1C501333004BC21F /* CKSQLiteCacheTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKSQLiteCacheTests.m; sourceTree = "<group>"; };
-		1158922F1C5015F3004BC21F /* CacheKit-Mac.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CacheKit-Mac.h"; sourceTree = "<group>"; };
-		115892311C5015F3004BC21F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1158923B1C5015F3004BC21F /* CacheKit_MacTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CacheKit_MacTests.m; sourceTree = "<group>"; };
-		1158923D1C5015F3004BC21F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1158925B1C501706004BC21F /* FMDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FMDB.framework; path = fmdb/build/Debug/FMDB.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -100,8 +96,6 @@
 		115891551C50115A004BC21F = {
 			isa = PBXGroup;
 			children = (
-				1158922E1C5015F3004BC21F /* CacheKit-Mac */,
-				1158923A1C5015F3004BC21F /* CacheKit-MacTests */,
 				1158917B1C501276004BC21F /* Frameworks */,
 				115891611C50115A004BC21F /* CacheKit */,
 				1158916D1C50115A004BC21F /* CacheKitTests */,
@@ -179,24 +173,6 @@
 				115891C31C5012D3004BC21F /* CKFastImage.m */,
 			);
 			path = FastImages;
-			sourceTree = "<group>";
-		};
-		1158922E1C5015F3004BC21F /* CacheKit-Mac */ = {
-			isa = PBXGroup;
-			children = (
-				1158922F1C5015F3004BC21F /* CacheKit-Mac.h */,
-				115892311C5015F3004BC21F /* Info.plist */,
-			);
-			path = "CacheKit-Mac";
-			sourceTree = "<group>";
-		};
-		1158923A1C5015F3004BC21F /* CacheKit-MacTests */ = {
-			isa = PBXGroup;
-			children = (
-				1158923B1C5015F3004BC21F /* CacheKit_MacTests.m */,
-				1158923D1C5015F3004BC21F /* Info.plist */,
-			);
-			path = "CacheKit-MacTests";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

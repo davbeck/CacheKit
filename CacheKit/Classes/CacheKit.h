@@ -15,6 +15,7 @@ FOUNDATION_EXPORT const unsigned char CacheKitVersionString[];
 
 
 #import "CKCache.h"
+#import "CKCacheContent.h"
 #import "CKMemoryCache.h"
 #import "CKFileCache.h"
 #import "CKSQLiteCache.h"
