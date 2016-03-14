@@ -1,6 +1,6 @@
 # CacheKit
 
-[![CI Status](http://img.shields.io/travis/David Beck/CacheKit.svg?style=flat)](https://travis-ci.org/David Beck/CacheKit)
+[![CI Status](http://img.shields.io/travis/davbeck/CacheKit.svg?style=flat)](https://travis-ci.org/davbeck/CacheKit)
 [![Version](https://img.shields.io/cocoapods/v/CacheKit.svg?style=flat)](http://cocoapods.org/pods/CacheKit)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![License](https://img.shields.io/cocoapods/l/CacheKit.svg?style=flat)](http://cocoapods.org/pods/CacheKit)
