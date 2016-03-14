@@ -149,6 +149,7 @@
 	
 	CGImageRef imageRef = CGBitmapContextCreateImage(context);
 	CGContextRelease(context);
+	CGColorSpaceRelease(colorSpace);
 	
 	
 	NSData *data = [NSData dataWithBytesNoCopy:bytes length:length];
