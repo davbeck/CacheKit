@@ -185,14 +185,20 @@
 {
     [_internalCache removeAllObjects];
     [_queue inDatabase:^(FMDatabase *db) {
-        [db executeUpdate:@"DELETE FROM objects"];
+		[db executeUpdate:@"DELETE FROM objects"];
+		
+		// without this, the db file will not actually get any smaller
+		[db executeUpdate:@"VACUUM"];
     }];
 }
 
 - (void)removeExpiredObjects
 {
     [_queue inDatabase:^(FMDatabase *db) {
-        [db executeUpdate:@"DELETE FROM objects WHERE expires IS NOT NULL AND expires < ?", @([[NSDate date] timeIntervalSince1970])];
+		[db executeUpdate:@"DELETE FROM objects WHERE expires IS NOT NULL AND expires < ?", @([[NSDate date] timeIntervalSince1970])];
+		
+		// without this, the db file will not actually get any smaller
+		[db executeUpdate:@"VACUUM"];
     }];
 }
 
@@ -212,11 +218,17 @@
 }
 
 - (void)trimFilesize {
-	if (self.maxFilesize > 0 && self.currentFilesize > self.maxFilesize) {
+	NSUInteger currentFileSize = self.currentFilesize;
+	if (self.maxFilesize > 0 && currentFileSize > self.maxFilesize) {
+		NSLog(@"%@ currentFilesize (%lu) is greater than maxFilesize (%lu). Trimming cache.", self, (unsigned long)currentFileSize, (unsigned long)self.maxFilesize);
+		
 		[_queue inDatabase:^(FMDatabase *db) {
 			[db executeUpdate:@"DELETE FROM objects WHERE expires IS NOT NULL AND expires < ?", @([[NSDate date] timeIntervalSince1970])];
 			
 			[db executeUpdate:@"DELETE FROM objects WHERE key IN (SELECT key FROM objects ORDER BY createdAt ASC LIMIT (SELECT COUNT(*) FROM objects) / 2)"];
+			
+			// without this, the db file will not actually get any smaller
+			[db executeUpdate:@"VACUUM"];
 		}];
 	}
 }
