@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name             = "CacheKit"
-  spec.version          = "0.6.3"
+  spec.version          = "0.6.4"
   spec.summary          = "Easily cache objects in memory, to files, a database or not at all."
   spec.homepage         = "https://github.com/davbeck/CacheKit"
   spec.license          = 'MIT'
