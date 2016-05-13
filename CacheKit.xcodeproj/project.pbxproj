@@ -69,7 +69,7 @@
 		115891C81C501333004BC21F /* CKFileCacheTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKFileCacheTests.m; sourceTree = "<group>"; };
 		115891C91C501333004BC21F /* CKMemoryCacheTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKMemoryCacheTests.m; sourceTree = "<group>"; };
 		115891CA1C501333004BC21F /* CKNullCacheTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKNullCacheTests.m; sourceTree = "<group>"; };
-		115891CB1C501333004BC21F /* CKSQLiteCacheTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKSQLiteCacheTests.m; sourceTree = "<group>"; };
+		115891CB1C501333004BC21F /* CKSQLiteCacheTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKSQLiteCacheTests.m; sourceTree = "<group>"; usesTabs = 1; };
 		1158925B1C501706004BC21F /* FMDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FMDB.framework; path = fmdb/build/Debug/FMDB.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
