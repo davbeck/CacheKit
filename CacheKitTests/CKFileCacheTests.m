@@ -134,6 +134,23 @@
     }];
 }
 
+- (void)testCacheSetPerformance
+{
+	[_cache setObject:@1 forKey:@"A"];
+	[_cache setObject:@2 forKey:@"B"];
+	[_cache setObject:@3 forKey:@"C"];
+	for (NSUInteger i = 0; i < 1000; i++) {
+		[_cache setObject:@(i) forKey:[NSString stringWithFormat:@"%lu", (unsigned long)i]];
+	}
+	
+	[self measureBlock:^{
+		[_cache setObject:@5 forKey:@"E"];
+		[_cache waitUntilFilesAreWritten];
+	}];
+	
+	XCTAssertEqualObjects([_cache objectForKey:@"E"], @5, @"Inccorrect cache hit.");
+}
+
 - (void)testMaxFilesize
 {
 	NSData *data = [NSData randomDataWithSize:1024];
