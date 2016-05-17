@@ -19,6 +19,7 @@
     // the file system is the truth though
     NSCache *_internalCache;
     FMDatabaseQueue *_queue;
+	NSDate *_lastTrimmed;
 }
 
 @end
@@ -100,7 +101,6 @@
     
     if (cacheContent == nil) {
         [_queue inDatabase:^(FMDatabase *db) {
-            //expires == null?
             FMResultSet *s = [db executeQuery:@"SELECT object, expires FROM objects WHERE key = ? AND (expires IS NULL OR expires > ?);", key, @([NSDate new].timeIntervalSince1970)];
             if ([s next]) {
                 id object = [NSKeyedUnarchiver unarchiveObjectWithData:[s dataForColumn:@"object"]];
@@ -133,11 +133,9 @@
             NSData *objectData = [NSKeyedArchiver archivedDataWithRootObject:object];
             [_queue inDatabase:^(FMDatabase *db) {
                 [db executeUpdate:@"INSERT OR REPLACE INTO objects (key, object, expires, createdAt) VALUES (?, ?, ?, ?)", key, objectData, expires, @([NSDate new].timeIntervalSince1970)];
+				
+				[self _trimIfNeeded];
 			}];
-			
-			dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-				[self trimFilesize];
-			});
         }
     }
     
@@ -164,12 +162,10 @@
     
     NSData *objectData = [NSKeyedArchiver archivedDataWithRootObject:object];
     [_queue inDatabase:^(FMDatabase *db) {
-        [db executeUpdate:@"INSERT OR REPLACE INTO objects (key, object, expires, createdAt) VALUES (?, ?, ?, ?)", key, objectData, expires, @([NSDate new].timeIntervalSince1970)];
+		[db executeUpdate:@"INSERT OR REPLACE INTO objects (key, object, expires, createdAt) VALUES (?, ?, ?, ?)", key, objectData, expires, @([NSDate new].timeIntervalSince1970)];
+		
+		[self _trimIfNeeded];
     }];
-	
-	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-		[self trimFilesize];
-	});
 }
 
 
@@ -217,20 +213,49 @@
 	return (NSUInteger)attributes.fileSize;
 }
 
+- (NSUInteger)_quickCurrentFilesize:(FMDatabase *)db {
+	NSUInteger currentFilesize = 0;
+	
+	FMResultSet *s = [db executeQuery:@"SELECT SUM(LENGTH(object)) AS filesize FROM objects;"];
+	if ([s next]) {
+		currentFilesize = [s intForColumn:@"filesize"];
+	}
+	
+	[s close];
+	
+	return currentFilesize;
+}
+
+- (void)_trimIfNeeded {
+	if (-_lastTrimmed.timeIntervalSinceNow > 60) {
+		[self trimFilesize];
+	}
+}
+
 - (void)trimFilesize {
-	NSUInteger currentFileSize = self.currentFilesize;
-	if (self.maxFilesize > 0 && currentFileSize > self.maxFilesize) {
-		NSLog(@"%@ currentFilesize (%lu) is greater than maxFilesize (%lu). Trimming cache.", self, (unsigned long)currentFileSize, (unsigned long)self.maxFilesize);
-		
-		[_queue inDatabase:^(FMDatabase *db) {
+	if (self.maxFilesize == 0) {
+		return;
+	}
+	
+	
+	[_queue inDatabase:^(FMDatabase *db) {
+		NSUInteger currentFileSize = 0;
+		while ((currentFileSize = [self _quickCurrentFilesize:db]) && currentFileSize > self.maxFilesize * 0.75) {
+			NSLog(@"%@ currentFilesize (%lu) is greater than maxFilesize (%lu). Trimming cache.", self, (unsigned long)currentFileSize, (unsigned long)self.maxFilesize);
+			
 			[db executeUpdate:@"DELETE FROM objects WHERE expires IS NOT NULL AND expires < ?", @([[NSDate date] timeIntervalSince1970])];
 			
 			[db executeUpdate:@"DELETE FROM objects WHERE key IN (SELECT key FROM objects ORDER BY createdAt ASC LIMIT (SELECT COUNT(*) FROM objects) / 2)"];
-			
+		}
+		
+		
+		if (self.currentFilesize > self.maxFilesize) {
 			// without this, the db file will not actually get any smaller
 			[db executeUpdate:@"VACUUM"];
-		}];
-	}
+		}
+		
+		_lastTrimmed = [NSDate date];
+	}];
 }
 
 @end

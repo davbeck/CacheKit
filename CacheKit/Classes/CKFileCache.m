@@ -17,6 +17,7 @@
     // the file system is the truth though
     NSCache *_internalCache;
     NSURL *_directory;
+	NSDate *_lastTrimmed;
     dispatch_queue_t _queue;
 }
 
@@ -57,7 +58,7 @@
         _internalCache = [NSCache new];
         _internalCache.name = name;
         
-        _queue = dispatch_queue_create(name.UTF8String, DISPATCH_QUEUE_SERIAL);
+        _queue = dispatch_queue_create(name.UTF8String, DISPATCH_QUEUE_CONCURRENT);
     }
     
     return self;
@@ -90,13 +91,17 @@
 {
     __block CKCacheContent *cacheContent = [_internalCache objectForKey:key];
     
-    if (cacheContent == nil) {
-        dispatch_sync(_queue, ^{
-            cacheContent = [NSKeyedUnarchiver unarchiveObjectWithFile:[self _URLForKey:key].path];
-        });
+	if (cacheContent == nil) {
+		dispatch_sync(_queue, ^{
+			cacheContent = [NSKeyedUnarchiver unarchiveObjectWithFile:[self _URLForKey:key].path];
+		});
+		
+		if (cacheContent != nil && !cacheContent.isExpired) {
+			[_internalCache setObject:cacheContent forKey:key];
+		}
     }
-    
-    if (cacheContent.expires != nil && cacheContent.expires.timeIntervalSinceNow < 0.0) {
+	
+    if (cacheContent.isExpired) {
         [self removeObjectForKey:key];
         cacheContent = nil;
     }
@@ -106,10 +111,12 @@
         if (object != nil) {
             cacheContent = [CKCacheContent cacheContentWithObject:object expires:expires];
             [_internalCache setObject:cacheContent forKey:key];
-            
-            dispatch_async(_queue, ^{
-                [NSKeyedArchiver archiveRootObject:cacheContent toFile:[self _URLForKey:key].path];
-            });
+			
+			dispatch_barrier_async(_queue, ^{
+				[NSKeyedArchiver archiveRootObject:cacheContent toFile:[self _URLForKey:key].path];
+				
+				[self _trimIfNeeded];
+			});
         }
     }
     
@@ -133,17 +140,20 @@
 {
     CKCacheContent *cacheContent = [CKCacheContent cacheContentWithObject:object expires:expires];
     [_internalCache setObject:cacheContent forKey:key];
-    
-    dispatch_async(_queue, ^{
-        [NSKeyedArchiver archiveRootObject:cacheContent toFile:[self _URLForKey:key].path];
-    });
+	
+	dispatch_barrier_async(_queue, ^{
+		[NSKeyedArchiver archiveRootObject:cacheContent toFile:[self _URLForKey:key].path];
+		
+		[self _trimIfNeeded];
+	});
 }
 
 
 - (void)removeObjectForKey:(NSString *)key
 {
     [_internalCache removeObjectForKey:key];
-    dispatch_async(_queue, ^{
+	
+	dispatch_barrier_async(_queue, ^{
         [[NSFileManager defaultManager] removeItemAtURL:[self _URLForKey:key] error:NULL];
     });
 }
@@ -151,7 +161,7 @@
 - (void)removeAllObjects
 {
     [_internalCache removeAllObjects];
-    dispatch_async(_queue, ^{
+	dispatch_barrier_async(_queue, ^{
         [[NSFileManager defaultManager] removeItemAtURL:_directory error:NULL];
         [[NSFileManager defaultManager] createDirectoryAtURL:_directory withIntermediateDirectories:YES attributes:nil error:NULL];
     });
@@ -164,10 +174,11 @@
 
 - (void)waitUntilFilesAreWritten
 {
-    dispatch_sync(_queue, ^{});
+	dispatch_sync(_queue, ^{ });
 }
 
-- (NSUInteger)currentFilesize {
+// must be called from _queue
+- (NSUInteger)_currentFilesize {
 	NSUInteger filesize = 0;
 	
 	NSDirectoryEnumerator *enumerator = [[NSFileManager defaultManager] enumeratorAtPath:_directory.path];
@@ -184,6 +195,65 @@
 	}
 	
 	return filesize;
+}
+
+- (NSUInteger)currentFilesize {
+	__block NSUInteger filesize = 0;
+	
+	dispatch_sync(_queue, ^{
+		filesize = [self _currentFilesize];
+	});
+	
+	return filesize;
+}
+
+// must be called within dispatch_barrier_async(_queue)
+- (void)_trimIfNeeded {
+	if (-_lastTrimmed.timeIntervalSinceNow > 60) {
+		[self _trimFilesize];
+	}
+}
+
+// must be called within dispatch_barrier_async(_queue)
+- (void)_trimFilesize {
+	NSUInteger filesize = self._currentFilesize;
+	if (self.maxFilesize > 0 && filesize > self.maxFilesize) {
+		NSLog(@"%@ currentFilesize (%lu) is greater than maxFilesize (%lu). Trimming cache.", self, (unsigned long)filesize, (unsigned long)self.maxFilesize);
+		
+		NSDirectoryEnumerator *enumerator = [[NSFileManager defaultManager] enumeratorAtPath:_directory.path];
+		NSString *file = nil;
+		while ((file = [enumerator nextObject])) {
+			NSString *path = [_directory.path stringByAppendingPathComponent:file];
+			NSError *error = nil;
+			NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:&error];
+			if (attributes == nil) {
+				NSLog(@"Error reading file attributes: %@", error);
+				continue;
+			}
+			
+			NSError *removeError = nil;
+			[[NSFileManager defaultManager] removeItemAtPath:path error:&removeError];
+			if (removeError != nil) {
+				NSLog(@"Error removing file: %@", removeError);
+				continue;
+			}
+			
+			filesize -= attributes.fileSize;
+			
+			// remove files until we are under half our max
+			if (filesize < self.maxFilesize / 2) {
+				break;
+			}
+		}
+	}
+	
+	_lastTrimmed = [NSDate date];
+}
+
+- (void)trimFilesize {
+	dispatch_barrier_async(_queue, ^{
+		[self _trimFilesize];
+	});
 }
 
 @end

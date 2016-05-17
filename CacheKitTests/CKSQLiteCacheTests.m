@@ -11,6 +11,8 @@
 
 #import <CacheKit/CacheKit.h>
 
+#import "NSData+Random.h"
+
 
 @interface CKSQLiteCacheTests : XCTestCase
 {
@@ -33,15 +35,6 @@
     [_cache removeAllObjects];
     
     [super tearDown];
-}
-
-- (NSData *)_randomDataWithSize:(NSInteger)size {
-	NSMutableData* data = [NSMutableData dataWithCapacity:size];
-	for(NSUInteger i = 0; i < size/sizeof(u_int32_t); i++) {
-		u_int32_t randomBits = arc4random();
-		[data appendBytes:(void*)&randomBits length:sizeof(u_int32_t)];
-	}
-	return [data copy];
 }
 
 - (void)testReadWrite
@@ -138,32 +131,38 @@
 
 - (void)testCacheLargeHitPerformance
 {
-    NSData *data = [self _randomDataWithSize:1024 * 1024];
-    
-    [_cache setObject:data forKey:@"A"];
-    [_cache setObject:@2 forKey:@"B"];
-    [_cache setObject:@3 forKey:@"C"];
-    for (NSInteger i = 0; i < 100; i++) {
-        [_cache setObject:[self _randomDataWithSize:1024 * 1024] forKey:[NSNumber numberWithInteger:i].stringValue];
-    }
-    
-    [self measureBlock:^{
-        [_cache clearInternalCache];
-        XCTAssertEqualObjects([_cache objectForKey:@"A"], data, @"Inccorrect cache hit.");
-    }];
+	NSData *data = [NSData randomDataWithSize:1024 * 1024];
+	
+	[_cache setObject:data forKey:@"A"];
+	[_cache setObject:@2 forKey:@"B"];
+	[_cache setObject:@3 forKey:@"C"];
+	for (NSUInteger i = 0; i < 100; i++) {
+		[_cache setObject:[NSData randomDataWithSize:1024 * 1024] forKey:[NSString stringWithFormat:@"%lu", (unsigned long)i]];
+	}
+	
+	[self measureBlock:^{
+		[_cache clearInternalCache];
+		XCTAssertEqualObjects([_cache objectForKey:@"A"], data, @"Inccorrect cache hit.");
+	}];
 }
 
 - (void)testMaxFilesize
 {
-	_cache.maxFilesize = 100 * 1024;
+	NSData *data = [NSData randomDataWithSize:1024];
+	__block int iteration = 0;
 	
-	NSData *data = [self _randomDataWithSize:1024];
-	for (NSInteger i = 0; i < 200; i++) {
-		[_cache setObject:data forKey:[NSNumber numberWithInteger:i].stringValue];
-	}
-	[_cache trimFilesize];
-	
-	XCTAssertLessThan(_cache.currentFilesize, _cache.maxFilesize);
+	[self measureBlock:^{
+		iteration++;
+		CKSQLiteCache<NSData *> *cache = [[CKSQLiteCache alloc] initWithName:[NSString stringWithFormat:@"Tests-%d", iteration]];
+		cache.maxFilesize = 100 * 1024;
+		
+		for (NSInteger i = 0; i < 200; i++) {
+			[cache setObject:data forKey:[NSNumber numberWithInteger:i].stringValue];
+		}
+		[cache trimFilesize];
+		
+		XCTAssertLessThanOrEqual(cache.currentFilesize, cache.maxFilesize);
+	}];
 }
 
 @end

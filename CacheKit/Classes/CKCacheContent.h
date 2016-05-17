@@ -15,4 +15,6 @@
 @property (nonatomic, readonly, strong, nonnull) ObjectType object;
 @property (nonatomic, readonly, copy, nullable) NSDate *expires;
 
+@property (nonatomic, readonly) BOOL isExpired;
+
 @end

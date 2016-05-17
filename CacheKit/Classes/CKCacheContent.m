@@ -71,4 +71,8 @@
     return [self.object hash] ^ self.expires.hash;
 }
 
+- (BOOL)isExpired {
+	return self.expires != nil && self.expires.timeIntervalSinceNow < 0.0;
+}
+
 @end
