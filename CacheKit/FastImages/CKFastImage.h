@@ -13,6 +13,7 @@
 
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(uint8_t, CKFastImageStyle) {
 	CKFastImageStyle32BitBGRA = 0,
@@ -73,21 +74,21 @@ typedef NS_ENUM(uint8_t, CKFastImageStyle) {
  @param bytes The buffer containing image data.
  @return A new `CKFastImage` instance.
  */
-- (instancetype)initWithData:(NSData *)data size:(CGSize)size scale:(CGFloat)scale style:(CKFastImageStyle)style NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithData:(nullable NSData *)data size:(CGSize)size scale:(CGFloat)scale style:(CKFastImageStyle)style NS_DESIGNATED_INITIALIZER;
 
 
 /** The bytes representing the image.
  
  You can use this to save the image in some form besides NSCoding.
  */
-@property (nonatomic, readonly) NSData *data;
+@property (nonatomic, readonly, nullable) NSData *data;
 
 
 /** The image backed by `bytes`.
  
  If the `CKFastImage` was created from bytes directly, or decoded with NSCoding, this will be created the first time it is called.
  */
-@property (nonatomic, readonly) UIImage *image;
+@property (nonatomic, readonly, nullable) UIImage *image;
 
 
 /** The scale of the image.
@@ -107,5 +108,7 @@ typedef NS_ENUM(uint8_t, CKFastImageStyle) {
 @property (nonatomic, readonly) CKFastImageStyle style;
 
 @end
+
+NS_ASSUME_NONNULL_END
 
 #endif
