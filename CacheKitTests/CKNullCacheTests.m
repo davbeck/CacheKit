@@ -14,7 +14,7 @@
 
 @interface CKNullCacheTests : XCTestCase
 {
-    CKNullCache<NSNumber *> *_cache;
+    CKNullCache *_cache;
 }
 
 @end

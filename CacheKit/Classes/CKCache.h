@@ -40,7 +40,7 @@ typedef _Nonnull id(^CKCacheContentBlock)();
  to allow for different methods of storage.
  */
 
-@interface CKCache<__covariant ObjectType:id<NSCoding, NSObject>> : NSObject
+@interface CKCache : NSObject
 
 /** Init cache with a given name.
  
@@ -78,7 +78,7 @@ typedef _Nonnull id(^CKCacheContentBlock)();
  @param key The key to look up the object with.
  @return The object for the given key, or nil.
  */
-- (nullable ObjectType)objectForKey:(nonnull NSString *)key;
+- (nullable id)objectForKey:(nonnull NSString *)key;
 
 /** Get the object for the given key.
  
@@ -89,7 +89,7 @@ typedef _Nonnull id(^CKCacheContentBlock)();
  @param content The block that provides an object when the cache misses. Can be nil.
  @return The object for the given key, or nil.
  */
-- (nullable ObjectType)objectForKey:(nonnull NSString *)key withContent:(nullable CKCacheContentBlock)content;
+- (nullable id)objectForKey:(nonnull NSString *)key withContent:(nullable CKCacheContentBlock)content;
 
 /** Get the object for the given key.
  
@@ -103,7 +103,7 @@ typedef _Nonnull id(^CKCacheContentBlock)();
  @param content The block that provides an object when the cache misses. Can be nil.
  @return The object for the given key, or nil.
  */
-- (nullable ObjectType)objectForKey:(nonnull NSString *)key expiresIn:(NSTimeInterval)expiresIn withContent:(nullable CKCacheContentBlock)content;
+- (nullable id)objectForKey:(nonnull NSString *)key expiresIn:(NSTimeInterval)expiresIn withContent:(nullable CKCacheContentBlock)content;
 
 /** Get the object for the given key.
  
@@ -116,7 +116,7 @@ typedef _Nonnull id(^CKCacheContentBlock)();
  @param content The block that provides an object when the cache misses. Can be nil.
  @return The object for the given key, or nil.
  */
-- (nullable ObjectType)objectForKey:(nonnull NSString *)key expires:(nullable NSDate *)expires withContent:(nullable CKCacheContentBlock)content;
+- (nullable id)objectForKey:(nonnull NSString *)key expires:(nullable NSDate *)expires withContent:(nullable CKCacheContentBlock)content;
 
 /** Get the object for the given key if it is cached in memory.
  
@@ -129,7 +129,7 @@ typedef _Nonnull id(^CKCacheContentBlock)();
  @param key The key to look up the object with.
  @return The object for the given key, or nil.
  */
-- (nullable ObjectType)objectInMemoryForKey:(nonnull NSString *)key;
+- (nullable id)objectInMemoryForKey:(nonnull NSString *)key;
 
 
 /** Add or replace the object for the given key
@@ -139,7 +139,7 @@ typedef _Nonnull id(^CKCacheContentBlock)();
  @param obj The object to store in the cache.
  @param key The key to store the object as.
  */
-- (void)setObject:(nonnull ObjectType)obj forKey:(nonnull NSString *)key;
+- (void)setObject:(nonnull id)obj forKey:(nonnull NSString *)key;
 
 /** Add or replace the object for the given key
  
@@ -151,7 +151,7 @@ typedef _Nonnull id(^CKCacheContentBlock)();
  @param expiresIn The amount of seconds before the content object will expire. If this number is
  <= 0 the object will typically be stored but ignored on subsequent requests.
  */
-- (void)setObject:(nonnull ObjectType)obj forKey:(nonnull NSString *)key expiresIn:(NSTimeInterval)expiresIn;
+- (void)setObject:(nonnull id)obj forKey:(nonnull NSString *)key expiresIn:(NSTimeInterval)expiresIn;
 
 /** Add or replace the object for the given key
  
@@ -162,7 +162,7 @@ typedef _Nonnull id(^CKCacheContentBlock)();
  @param key The key to store the object as.
  @param expires When the content object should expire.
  */
-- (void)setObject:(nonnull ObjectType)obj forKey:(nonnull NSString *)key expires:(nullable NSDate *)expires;
+- (void)setObject:(nonnull id)obj forKey:(nonnull NSString *)key expires:(nullable NSDate *)expires;
 
 
 /** Remove the object stored in key.

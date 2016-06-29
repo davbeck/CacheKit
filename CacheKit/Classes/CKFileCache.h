@@ -21,7 +21,7 @@
  
  Notice: Objects must conform to the `NSCoding` protocol.
  */
-@interface CKFileCache<__covariant ObjectType:id<NSCoding, NSObject>> : CKCache
+@interface CKFileCache : CKCache
 
 /** A shared file cache.
  

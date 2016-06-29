@@ -16,7 +16,7 @@
 
 @interface CKFileCacheTests : XCTestCase
 {
-    CKFileCache<NSNumber *> *_cache;
+    CKFileCache *_cache;
 }
 
 @end
@@ -158,7 +158,7 @@
 	
 	[self measureBlock:^{
 		iteration++;
-		CKFileCache<NSData *> *cache = [[CKFileCache alloc] initWithName:[NSString stringWithFormat:@"Tests-%ld", (long)iteration]];
+		CKFileCache *cache = [[CKFileCache alloc] initWithName:[NSString stringWithFormat:@"Tests-%ld", (long)iteration]];
 		cache.maxFilesize = 100 * 1024;
 	
 		for (NSInteger i = 0; i < 200; i++) {
