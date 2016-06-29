@@ -345,6 +345,7 @@
 					};
 					119C6D451CEA684100B51399 = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0800;
 					};
 					119C6D581CEA684100B51399 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -604,6 +605,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ThinkUltimate.CacheKitTestHost;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -617,6 +619,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ThinkUltimate.CacheKitTestHost;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -676,6 +679,7 @@
 				119C6D611CEA684100B51399 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		119C6D651CEA684100B51399 /* Build configuration list for PBXNativeTarget "CacheKitTests" */ = {
 			isa = XCConfigurationList;
@@ -684,6 +688,7 @@
 				119C6D631CEA684100B51399 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
