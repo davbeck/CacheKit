@@ -133,9 +133,9 @@
             NSData *objectData = [NSKeyedArchiver archivedDataWithRootObject:object];
             [_queue inDatabase:^(FMDatabase *db) {
                 [db executeUpdate:@"INSERT OR REPLACE INTO objects (key, object, expires, createdAt) VALUES (?, ?, ?, ?)", key, objectData, expires, @([NSDate new].timeIntervalSince1970)];
-				
-				[self _trimIfNeeded];
 			}];
+			
+			[self _trimIfNeeded];
         }
     }
     
@@ -163,9 +163,9 @@
     NSData *objectData = [NSKeyedArchiver archivedDataWithRootObject:object];
     [_queue inDatabase:^(FMDatabase *db) {
 		[db executeUpdate:@"INSERT OR REPLACE INTO objects (key, object, expires, createdAt) VALUES (?, ?, ?, ?)", key, objectData, expires, @([NSDate new].timeIntervalSince1970)];
-		
-		[self _trimIfNeeded];
-    }];
+	}];
+	
+	[self _trimIfNeeded];
 }
 
 
