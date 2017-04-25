@@ -181,4 +181,15 @@
 	}];
 }
 
+- (void)testMaxFilesizeLargeObject
+{
+	// objects that are larger than the max filesize should not be stored
+	_cache.maxFilesize = 100 * 1024;
+	NSData *data = [NSData randomDataWithSize:100 * 1024];
+	
+	[_cache setObject:data forKey:@"big"];
+	
+	XCTAssertLessThanOrEqual(_cache.currentFilesize, _cache.maxFilesize);
+}
+
 @end

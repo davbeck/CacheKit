@@ -161,6 +161,12 @@
     [_internalCache setObject:cacheContent forKey:key];
     
     NSData *objectData = [NSKeyedArchiver archivedDataWithRootObject:object];
+	
+	if (objectData.length >= self.maxFilesize) {
+		NSLog(@"Storing object for key %@ in memory only because it is larger than the maxFileSzie", key);
+		return;
+	}
+	
     [_queue inDatabase:^(FMDatabase *db) {
 		[db executeUpdate:@"INSERT OR REPLACE INTO objects (key, object, expires, createdAt) VALUES (?, ?, ?, ?)", key, objectData, expires, @([NSDate new].timeIntervalSince1970)];
 		
@@ -217,13 +223,26 @@
 	NSUInteger currentFilesize = 0;
 	
 	FMResultSet *s = [db executeQuery:@"SELECT SUM(LENGTH(object)) AS filesize FROM objects;"];
-	if ([s next]) {
+	if ([s next] && ![s columnIsNull:@"filesize"]) {
 		currentFilesize = [s intForColumn:@"filesize"];
 	}
 	
 	[s close];
 	
 	return currentFilesize;
+}
+
+- (NSUInteger)_objectCount:(FMDatabase *)db {
+	NSUInteger count = 0;
+	
+	FMResultSet *s = [db executeQuery:@"SELECT COUNT(*) AS count FROM objects;"];
+	if ([s next]) {
+		count = [s intForColumn:@"count"];
+	}
+	
+	[s close];
+	
+	return count;
 }
 
 - (void)_trimIfNeeded {
@@ -240,12 +259,21 @@
 	
 	[_queue inDatabase:^(FMDatabase *db) {
 		NSUInteger currentFileSize = 0;
-		while ((currentFileSize = [self _quickCurrentFilesize:db]) && currentFileSize > self.maxFilesize * 0.75) {
+		NSUInteger iteration = 0; // just a failsafe against infinite loop bugs
+		while ((currentFileSize = [self _quickCurrentFilesize:db]) && currentFileSize > self.maxFilesize * 0.75 && iteration < 5) {
 			NSLog(@"%@ currentFilesize (%lu) is greater than maxFilesize (%lu). Trimming cache.", self, (unsigned long)currentFileSize, (unsigned long)self.maxFilesize);
 			
 			[db executeUpdate:@"DELETE FROM objects WHERE expires IS NOT NULL AND expires < ?", @([[NSDate date] timeIntervalSince1970])];
 			
-			[db executeUpdate:@"DELETE FROM objects WHERE key IN (SELECT key FROM objects ORDER BY createdAt ASC LIMIT (SELECT COUNT(*) FROM objects) / 2)"];
+			NSUInteger count = [self _objectCount:db];
+			NSLog(@"count: %lu", (unsigned long)count);
+			if (count == 0) {
+				break;
+			}
+			
+			[db executeUpdate:@"DELETE FROM objects WHERE key IN (SELECT key FROM objects ORDER BY createdAt ASC LIMIT ?);", @(ceil((double)count / 2))];
+			
+			iteration++;
 		}
 		
 		
