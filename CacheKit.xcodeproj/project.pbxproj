@@ -91,7 +91,7 @@
 		115891AD1C5012C1004BC21F /* CKNullCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKNullCache.h; sourceTree = "<group>"; };
 		115891AE1C5012C1004BC21F /* CKNullCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKNullCache.m; sourceTree = "<group>"; };
 		115891AF1C5012C1004BC21F /* CKSQLiteCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKSQLiteCache.h; sourceTree = "<group>"; };
-		115891B01C5012C1004BC21F /* CKSQLiteCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKSQLiteCache.m; sourceTree = "<group>"; };
+		115891B01C5012C1004BC21F /* CKSQLiteCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKSQLiteCache.m; sourceTree = "<group>"; usesTabs = 1; };
 		115891C01C5012D3004BC21F /* CKCache+CKFastImages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CKCache+CKFastImages.h"; sourceTree = "<group>"; };
 		115891C11C5012D3004BC21F /* CKCache+CKFastImages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CKCache+CKFastImages.m"; sourceTree = "<group>"; };
 		115891C21C5012D3004BC21F /* CKFastImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKFastImage.h; sourceTree = "<group>"; };
