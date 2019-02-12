@@ -6,6 +6,8 @@
 [![License](https://img.shields.io/cocoapods/l/CacheKit.svg?style=flat)](http://cocoapods.org/pods/CacheKit)
 [![Platform](https://img.shields.io/cocoapods/p/CacheKit.svg?style=flat)](http://cocoapods.org/pods/CacheKit)
 
+For a more Swift focused caching solution, check out [PersistentCacheKit](https://github.com/davbeck/PersistentCacheKit), which is the spiritual successor to this project.
+
 ## Usage
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
